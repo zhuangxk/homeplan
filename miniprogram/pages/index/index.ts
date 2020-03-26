@@ -4,7 +4,7 @@ const app = getApp<IAppOption>()
 
 Page({
   data: {
-    PageCur: 'overview',
+    PageCur: 'main',
   },
   NavChange(e: any) {
     this.setData({

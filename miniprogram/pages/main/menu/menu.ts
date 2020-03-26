@@ -3,8 +3,8 @@ Page({
   data: {
     ListTouchDirection: 'left',
     ListTouchStart: 0,
-    StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar,
+    // StatusBar: app.globalData.StatusBar,
+    // CustomBar: app.globalData.CustomBar,
     iconList: [{
       icon: 'cardboardfill',
       color: 'red',
@@ -40,21 +40,6 @@ Page({
       color: 'purple',
       badge: 0,
       name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'commandfill',
-      color: 'purple',
-      badge: 0,
-      name: '问答'
-    }, {
-      icon: 'brandfill',
-      color: 'mauve',
-      badge: 0,
-      name: '版权'
     }],
     gridCol: 3,
     skin: false
