@@ -1,0 +1,16 @@
+
+<view class="bg-gray">
+
+    <view style="height:100vh" class="flex flex-direction align-center padding-xl justify-center">
+
+      <view class="flex-sub margin-xl text-lg text-gray text-shadow">
+        <text>
+          请您登录后使用
+        </text>
+      </view>
+      <button class="bg-green margin-xl radius">
+        <text class="cuIcon-weixin xl" />
+          微信一键登录 
+      </button>
+    </view>
+</view>
