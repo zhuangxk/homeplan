@@ -1,4 +1,6 @@
 // miniprogram/pages/login/login.js
+
+import { login } from '../../api/api'
 Page({
 
   /**
@@ -14,7 +16,26 @@ Page({
   onLoad () {
 
   },
+  login() {
+    console.log(12)
+    wx.login({
+      success: res => {
+        console.log(res.code)
+        login(res.code)
+        .then( r =>{
+          console.log('sss')
 
+          console.log(r)
+        })
+        .catch(err=>{
+          console.log('eee')
+          console.log(err)
+        })
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      },
+    })
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

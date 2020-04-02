@@ -1,6 +1,6 @@
 // app.ts
 
-import { login } from './api/api'
+
 App<IAppOption>({
   globalData: { 
 
@@ -12,22 +12,8 @@ App<IAppOption>({
     // wx.setStorageSync('logs', logs)
 
     // 登录
-    
-    wx.login({
-      success: res => {
-        console.log(res.code)
-        login(res.code)
-        .then( r =>{
-          console.log('sss')
-
-          console.log(r)
-        })
-        .catch(err=>{
-          console.log('eee')
-          console.log(err)
-        })
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      },
+    wx.redirectTo({
+      url: '/pages/login/login'
     })
     // 获取用户信息
     wx.getSetting({
