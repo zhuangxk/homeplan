@@ -3,7 +3,7 @@
 
 App<IAppOption>({
   globalData: { 
-
+    logged: false
   },
   onLaunch() {
     // 展示本地存储能力
