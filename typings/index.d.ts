@@ -2,12 +2,13 @@
 
 interface IAppOption {
   globalData: {
-    userInfo?: WechatMiniprogram.UserInfo,
-    ColorList?: { title: string; name: string; color: string; }[],
-    StatusBar?: number,
-    Custom?: WechatMiniprogram.Rect,
-    CustomBar?: number
+    userInfo?: WechatMiniprogram.UserInfo;
+    ColorList?: { title: string; name: string; color: string }[];
+    StatusBar?: number;
+    Custom?: WechatMiniprogram.Rect;
+    CustomBar?: number;
+    logged?: boolean;
 
-  }
-  userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
+  };
+  userInfoReadyCallback?: WechatMiniprogram.GetUserInUserfoSuccessCallback;
 }

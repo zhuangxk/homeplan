@@ -45,7 +45,7 @@ Page({
   bill(){
     console.log('bill')
   },
-  bindGetUserInfo(e:any){
+  bindGetUserInfo(e: any){
     console.log(e.detail.userInfo)
   }
 
