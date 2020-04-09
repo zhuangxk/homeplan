@@ -13,15 +13,6 @@ App<IAppOption>({
     )
   },
   onLaunch() {
-    // 展示本地存储能力
-    // const logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
-
-    // 登录
-    wx.redirectTo({
-      url: '/pages/login/login'
-    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -31,27 +22,34 @@ App<IAppOption>({
             success: res => {
               console.log(res)
               this.globalData.userInfo = res.userInfo
+              this.globalData.logged = true
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
             },
           })
+        } else {
+          console.log('没有授权')
+          wx.reLaunch({
+            url:"/pages/login/login",
+          })
+          
         }
       },
     })
 
-    wx.getSystemInfo({
-      success: e => {
-        this.globalData.StatusBar = e.statusBarHeight;
-        const capsule = wx.getMenuButtonBoundingClientRect();
-        if (capsule) {
-          this.globalData.Custom = capsule;
-          this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
-        } else {
-          this.globalData.CustomBar = e.statusBarHeight + 50;
-        }
-      }
-    })
+    // wx.getSystemInfo({
+    //   success: e => {
+    //     this.globalData.StatusBar = e.statusBarHeight;
+    //     const capsule = wx.getMenuButtonBoundingClientRect();
+    //     if (capsule) {
+    //       this.globalData.Custom = capsule;
+    //       this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
+    //     } else {
+    //       this.globalData.CustomBar = e.statusBarHeight + 50;
+    //     }
+    //   }
+    // })
     
   },
 })

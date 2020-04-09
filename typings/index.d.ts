@@ -10,5 +10,5 @@ interface IAppOption {
     logged?: boolean;
 
   };
-  userInfoReadyCallback?: WechatMiniprogram.GetUserInUserfoSuccessCallback;
+  userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback;
 }

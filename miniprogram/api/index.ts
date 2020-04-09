@@ -1,9 +1,21 @@
 import http from './http'
-
-export function login(code: string): Promise<Function>{
-  return http({
-    url:'/auth',
-    data: {code}
+const app = getApp()
+export function login(){
+  wx.login({
+    success: res => {
+      http({
+        url:'/auth',
+        data: {code: res.code }
+      })
+      .then((r: any ) => {
+          wx.setStorage({
+              key: "token",
+              data: r.token
+          })
+          app.globalData.logged = true
+        }
+      )
+    },
   })
 }
 

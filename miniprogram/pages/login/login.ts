@@ -1,28 +1,21 @@
 // miniprogram/pages/login/login.js
 
-import { login } from '../../api/index'
-const app = getApp()
+const app = getApp() as IAppOption
 Page({
   data: {
 
   },
-  login() {
-    wx.login({
-      success: res => {
-        login(res.code)
-          .then((r: any ) => {
-            wx.setStorage({
-                key: "token",
-                data: r.token
-            })
-            app.globalData.logged = true
-            wx.navigateTo({
-              url: "/pages/index/index"
-            })
-          }
-        )
-      },
-    })
-
+  login(e:any) {
+    if(e.detail.errMsg == 'getUserInfo:ok'){
+      app.globalData.userInfo = e.detail.userInfo
+      app.globalData.logged = true
+      if (app.userInfoReadyCallback) {
+        app.userInfoReadyCallback(e.detail)
+      }
+      wx.redirectTo({
+        url: '/pages/index/index'
+      })
+    }
   }
 })
+export {};
