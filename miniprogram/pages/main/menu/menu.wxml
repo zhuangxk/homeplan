@@ -19,11 +19,6 @@
       </view>
       <text>{{item.name}}</text>
     </view>
-
-    <button open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">获取授权</button>
-
-
-    
   </view>
   
  </scroll-view>

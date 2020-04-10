@@ -1,26 +1,27 @@
 import http from './http'
-const app = getApp()
+// 获取token
 export function login(){
-  wx.login({
-    success: res => {
-      http({
-        url:'/auth',
-        data: {code: res.code }
-      })
-      .then((r: any ) => {
-          wx.setStorage({
-              key: "token",
-              data: r.token
-          })
-          app.globalData.logged = true
-        }
-      )
-    },
+  return new Promise((resolve, reject)=>{
+    wx.login({
+      success: res => {
+        http({
+          url:'/auth',
+          data: {code: res.code }
+        }, true)
+        .then((r: any) => {
+            wx.setStorageSync("token", r.token)
+            resolve(r.token)
+          }
+        )
+        .catch(reject)
+      },
+    })    
   })
+
 }
 
-export function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<Function>{
-  return http( {
+export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<Function>{
+  return await http({
     url: '/v1/user',
     method: 'POST',
     data: data

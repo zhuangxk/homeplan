@@ -5,17 +5,16 @@ Page({
   data: {
 
   },
-  login(e:any) {
+  login(e: any) {
     if(e.detail.errMsg == 'getUserInfo:ok'){
       app.globalData.userInfo = e.detail.userInfo
       app.globalData.logged = true
-      if (app.userInfoReadyCallback) {
-        app.userInfoReadyCallback(e.detail)
-      }
+      app.userInfoReadyCallback(e.detail)
       wx.redirectTo({
         url: '/pages/index/index'
       })
     }
   }
 })
-export {};
+export { }
+

@@ -11,6 +11,9 @@ Page({
       PageCur: e.currentTarget.dataset.cur
     })
   },
+  onLoad(){
+    console.log('page index 已加载')
+  },
   onShareAppMessage() {
     return {
       title: 'demo',
@@ -20,4 +23,5 @@ Page({
   }
 })
 
-export {};
+export { };
+
