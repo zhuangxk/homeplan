@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "bill": "/pages/ledger/bill/bill",
+    "analysis": "/pages/ledger/analysis/analysis",
+    "setting": "/pages/ledger/setting/setting"
+  }
+}

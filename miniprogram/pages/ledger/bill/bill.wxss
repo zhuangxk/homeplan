@@ -1,0 +1,35 @@
+/* miniprogram/pages/ledger/bill/bill.wxss */
+.ledger-bill-add-btn{
+    position: fixed;
+    right: 50px;
+    bottom: 80px;
+}
+
+.ledger-bill-top-panel{
+    padding: 16px;
+    background-color: var(--cyan);
+    height: 100px;
+    color: #fff;
+}
+.ledger-bill-top-panel-num {
+    font-size: 2em;
+}
+
+.ledger-bill-top-plus{
+    color: #fff;
+    background-color: var(--cyan);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    position: fixed;
+    right: 50px;
+    bottom: 100px;
+    text-align: center;
+    box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.2);
+}
+.ledger-bill-del-btn{
+    border: none;
+    height: 100%;
+    width: 100px;
+}

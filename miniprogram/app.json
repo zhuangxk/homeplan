@@ -1,11 +1,15 @@
 {
   "pages": [
+    "pages/ledger/home",
     "pages/index/index",
     "pages/login/login",
     "pages/about/home/home",
     "pages/overview/timeline/timeline",
     "pages/logs/logs",
-    "pages/main/menu/menu"
+    "pages/main/menu/menu",
+    "pages/ledger/bill/bill",
+    "pages/ledger/analysis/analysis",
+    "pages/ledger/setting/setting"
   ],
   "window": {
     "navigationBarBackgroundColor": "#39b54a",
@@ -13,9 +17,15 @@
     "navigationStyle": "custom",
     "navigationBarTextStyle": "white"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-button": "@vant/weapp/button/index",
     "cu-custom": "/colorui/components/cu-custom"
   }
 }

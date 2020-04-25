@@ -20,5 +20,7 @@
       <text>{{item.name}}</text>
     </view>
   </view>
+
+  <van-button  round type="info">123</van-button>
   
  </scroll-view>

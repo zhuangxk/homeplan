@@ -1,0 +1,39 @@
+<!--miniprogram/pages/ledger/bill/bill.wxml-->
+<view class="ledger-bill-top-panel">
+  <text style="margin-right:50px">2020年4月</text>
+  <text>支出<text class="ledger-bill-top-panel-num">3456</text></text>
+  <text style="margin-left:20px">收入<text class="ledger-bill-top-panel-num">7050</text></text>
+</view>
+
+
+<van-swipe-cell right-width="{{ 130 }}">
+  <van-cell-group>
+   <van-cell title="支出" value="-32.3" size="large" />
+  </van-cell-group>
+    <view slot="right" style="height: 100%">
+    <van-button type="danger" custom-style="height:100%;width:65px">删除</van-button>
+    <van-button color="var(--cyan)" custom-style="height:100%;width:65px">编辑</van-button>
+
+    </view>
+</van-swipe-cell>
+<van-swipe-cell right-width="{{ 130 }}">
+  <van-cell-group>
+    <van-cell title="收入" value="+700" size="large" label="备注信息哦" />
+  </van-cell-group>
+  <view slot="right" style="height: 100%">
+      <van-button type="danger" custom-style="height:100%;width:65px">
+          删除
+      </van-button>
+      <van-button color="var(--cyan)" custom-style="height:100%;width:65px">编辑</van-button>
+  </view>
+</van-swipe-cell>
+
+
+
+
+
+
+<view class="ledger-bill-top-plus">
+  <van-icon name="plus" size="30px" />
+</view>
+

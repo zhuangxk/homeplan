@@ -1,0 +1,5 @@
+/* miniprogram/pages/home/home.wxss */
+.ledger-nav-btn{
+    margin-left: 16px;
+}
+

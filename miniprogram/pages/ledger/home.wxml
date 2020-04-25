@@ -1,0 +1,25 @@
+<!--miniprogram/pages/home/home.wxml-->
+<view >
+  <cu-custom bgColor="bg-cyan">
+      <view slot="right">
+        <van-icon class="ledger-nav-btn" name="apps-o"  size="1.5em" />
+        </view>
+      <view slot="content">
+         共享账本
+         <!-- <van-button color="var(--cyan)" icon="star-o" size="small" type="primary">默认账本</van-button> -->
+      </view>
+  </cu-custom>
+
+
+  <bill wx:if="{{active==0}}"></bill>
+  <analysis wx:if="{{active==1}}"></analysis>
+  <setting wx:if="{{active==2}}"></setting>
+
+  <van-tabbar active-color="var(--cyan)" active="{{ active }}" bind:change="onChange">
+    <van-tabbar-item icon="balance-list-o">账单</van-tabbar-item>
+    <van-tabbar-item icon="chart-trending-o">分析</van-tabbar-item>
+    <van-tabbar-item icon="setting-o">设置</van-tabbar-item>
+  </van-tabbar>
+</view>
+
+
