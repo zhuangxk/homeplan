@@ -6,6 +6,12 @@
 </view>
 
 
+<view class="ledger-bill-list-date" style="top:{{CustomBar}}px">
+ 今天
+ 支出 200
+ 收入 300
+</view>
+
 <van-swipe-cell right-width="{{ 130 }}">
   <van-cell-group>
    <van-cell title="支出" value="-32.3" size="large" />
@@ -13,9 +19,9 @@
     <view slot="right" style="height: 100%">
     <van-button type="danger" custom-style="height:100%;width:65px">删除</van-button>
     <van-button color="var(--cyan)" custom-style="height:100%;width:65px">编辑</van-button>
-
     </view>
 </van-swipe-cell>
+
 <van-swipe-cell right-width="{{ 130 }}">
   <van-cell-group>
     <van-cell title="收入" value="+700" size="large" label="备注信息哦" />
@@ -28,12 +34,25 @@
   </view>
 </van-swipe-cell>
 
+<van-popup
+  show="{{ show }}"
+  round
+  position="bottom"
+  custom-style="height: 50%"
+  bind:close="onClose"
+>
 
+ <van-field label="￥"
+ hold-keyboard
+  type="number" value="{{ value }}" placeholder="请输入用户名" border="{{ false }}" bind:change="onChange" />
+
+
+</van-popup>
 
 
 
 
 <view class="ledger-bill-top-plus">
-  <van-icon name="plus" size="30px" />
+  <van-icon name="plus" size="30px" bind:tap="onAdd" />
 </view>
 
