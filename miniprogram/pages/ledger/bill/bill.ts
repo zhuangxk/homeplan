@@ -10,9 +10,12 @@ Page({
     //     })
     // }
     onAdd(){
-        this.setData({
-            show: true
+        wx.navigateTo({
+            url: "/pages/ledger/bill/bill_form/bill_form"
         })
+        // this.setData({
+        //     show: true
+        // })
     },
     onClose(){
         this.setData({

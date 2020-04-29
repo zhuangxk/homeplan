@@ -38,13 +38,13 @@
   show="{{ show }}"
   round
   position="bottom"
-  custom-style="height: 50%"
+  custom-style="height: 65%"
   bind:close="onClose"
 >
 
  <van-field label="￥"
- hold-keyboard
-  type="number" value="{{ value }}" placeholder="请输入用户名" border="{{ false }}" bind:change="onChange" />
+  hold-keyboard
+  type="number" value="{{ value }}" placeholder="请输入金额"  bind:change="onChange" />
 
 
 </van-popup>

@@ -1,0 +1,17 @@
+<!--miniprogram/pages/ledger/bill/bill_form/bill_form.wxml-->
+
+
+<cu-custom isBack="{{true}}"  bgColor="bg-white">
+    <view slot="backText"  class="action">
+        返回
+    </view>
+
+  <view slot="content" class="action">
+    <van-dropdown-menu active-color="var(--cyan)" >
+        <van-dropdown-item value="{{ billType }}" options="{{ typeOption }}" />
+    </van-dropdown-menu>
+  </view>
+</cu-custom>
+
+
+
