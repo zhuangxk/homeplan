@@ -1,0 +1,26 @@
+<!--components/keyboard/keyboard.wxml-->
+
+
+<view class="j-keyboard-box">
+  <view class="field">
+    <text > ￥ </text>
+    <input type="number" placeholder="0.00"/>  
+  </view> 
+  <view >1</view>
+  <view >2</view>
+  <view >3</view>
+  <view class="del">
+    <text class="cuIcon-backdelete lg "></text>
+    <!-- lg text-gray -->
+  </view>
+  <view >4</view>
+  <view >5</view>
+  <view >6</view>
+  <view class="ok">支出</view>
+  <view >7</view>
+  <view >8</view>
+  <view >9</view>
+  <view class="zero">0</view>
+  <view >.</view>
+
+</view>
