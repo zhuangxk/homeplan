@@ -1,5 +1,5 @@
 /* miniprogram/pages/ledger/bill_form/bill_form.wxss */
-.VerticalNav.nav {
+/* .VerticalNav.nav {
   width: 200rpx;
   white-space: initial;
 }
@@ -34,21 +34,46 @@
 }
 .VerticalMain{
   background-color: #f1f1f1;
-}
+} */
 
 .j-HorizontalBox{
-  background-color: blanchedalmond;
+  background-color: #fff;
 }
 .j-Horizontal-nav{
   height: 100rpx;
-  width: 100%;
-  border: 1px solid #f3e;
+  width: 750rpx;
+  border: 1px solid #ddd;
   display: flex;
   flex-direction: row;
+  /* padding: 0 10rpx; */
 }
-/* .j-Horizontal-nav > view{
-  flex: 1;
-} */
+.j-Horizontal-nav view{
+  writing-mode: vertical-lr;
+  text-align: center;
+  padding: 0 .5em;
+  width: 2em;
+}
 .j-Horizontal-main{
-  height: 500rpx;
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.j-Horizontal-main-item{
+  border: 1px solid #ddd;
+  background-color: #fff;
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+  line-height: 80rpx;
+  text-align: center;
+  margin: 20rpx;
+  font-size: 30rpx;
+}
+
+.j-bill-form-keyboard{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
