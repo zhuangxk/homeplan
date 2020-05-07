@@ -36,17 +36,6 @@
 <view>
 
   <view class="j-HorizontalBox"> 
-    <scroll-view class="j-Horizontal-nav" scroll-with-animation="{{true}}" enable-flex scroll-x="{{true}}">
-      <view 
-      class=" {{index==TabCur?'text-green cur':''}}" 
-      wx:for="{{billTypes}}" 
-      wx:key="index" 
-      bindtap='tabSelect' 
-      data-id="{{index}}">
-        {{item.name}}
-      </view>
-    </scroll-view>
-
     <scroll-view style="height: calc(100vh - 620rpx - {{CustomBar}}px - 46px - 100rpx );" class="j-Horizontal-main" scroll-with-animation enable-flex scroll-x >
       <view
         class="j-Horizontal-main-item"

@@ -2,10 +2,23 @@
 
 
 <view class="j-keyboard-box">
-  <view class="field">
-    <text > ￥ </text>
-    <input type="number" placeholder="0.00"/>  
+  <view class="toolbar">
+    <view>
+      <text class="cuIcon-calendar"></text>
+      <text style="color:red" class="cuIcon-pic"></text>
+    </view>
+
+    <view class="remark">
+      <view style="opacity:{{typing?0:1}}"  bind:tap="onRemarkTap">{{remark || '备注'}}</view>
+      <input style="opacity:{{typing?1:0}}" 
+      value="{{remark}}" placeholder="备注" 
+      bindblur="onRemarkBlur"
+      bindfocus="onRemarkFocus"
+      bind:touchstart="onRemarkFocus"
+      /> 
+    </view>
   </view> 
+  <!-- <view class="remark">备注</view> -->
   <view >1</view>
   <view >2</view>
   <view >3</view>
