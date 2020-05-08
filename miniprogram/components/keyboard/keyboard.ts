@@ -4,6 +4,8 @@ Component({
     styleIsolation: 'apply-shared'
   },
   data: {
+    max: 9999999,
+    min: 0,
     remark: '',
     acount: '',
     date: '',
@@ -28,8 +30,13 @@ Component({
   },
   methods: {
     onInput(e: any){
-      const value = e.target.dataset.v;
+      const value = e.currentTarget.dataset.v;
+      console.log('----', e)
+      if(!value) return
       switch (value) {
+        case 'date':
+          this.setDate()
+          return
         case 'ok':
           this.ok()
           return
@@ -39,19 +46,67 @@ Component({
           return;
           
         default:
-          this.input()
+          this.input(value)
           return;
       }
-      console.log(e)
     },
     del(): void{
+      const value = this.data.acount.substring(0, this.data.acount.length - 1)
+      console.log('del',value)
+      this.setData({
+        acount: value
+      })
+    },
+    setDate(): void{
       ;
     },
     ok(): void{
       ;
     },
-    input(): void{
-      ;
+    input(val: string): void{
+      console.log('input')
+      const value = this.format(val)
+      this.setData({
+        acount: value
+      })
+    },
+    // filter illegal characters
+    filter: function (value: string): string {
+      value = value.replace(/[^0-9.-]/g, '');
+      if (this.data.integer && value.indexOf('.') !== -1) {
+        value = value.split('.')[0];
+      }
+      return value;
+    },
+    // limit value range
+    format: function (val: any) {
+      if (this.data.acount.indexOf('.') > -1) {
+        if (val === '.'){
+          return this.data.acount
+        }
+        if(this.data.acount.split('.')[1].length >= 2){
+          return this.data.acount
+        }
+      }
+      const value = this.data.acount + val
+      if (val === '.') {
+        return this.data.acount + val
+      }
+      if (this.data.acount === '0'){
+        if(val !== '.' ){
+          return val
+        }
+      }
+      if(parseInt(value) > 99999999){
+        wx.showToast({
+          title: '钱太多,数不过来啦',
+          icon: 'none'
+        })
+        return this.data.acount
+      }
+
+      return value
+
     },
     getNum(val: string): number{
       const n = parseFloat(val)

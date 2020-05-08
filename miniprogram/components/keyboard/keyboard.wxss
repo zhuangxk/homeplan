@@ -27,8 +27,8 @@
 }
 
 .j-keyboard-box > .del {
-  grid-row: 2 / 3;
-  grid-column: 4 / 5;
+  grid-row: 5 / 6;
+  grid-column: 3 / 4;
 }
 
 .j-keyboard-box > .ok {
@@ -40,7 +40,7 @@
 
 .j-keyboard-box > .zero{
   grid-row: 5 / 6;
-  grid-column: 1 / 3;
+  grid-column: 2 / 3;
 }
 
 .j-keyboard-box > .toolbar {
@@ -55,9 +55,7 @@
 }
 
 .j-keyboard-box > .toolbar > .btn {
-  flex: 1;
-  display: flex;
-  justify-content:space-around;
+  margin-left: 30rpx;
 }
 .j-keyboard-box > .toolbar > .remark {
   width: 75%;
@@ -125,29 +123,35 @@
 }
 
 .j-icon-list{
-  margin-top: 20rpx;
-  height: 250rpx;
+  padding: 0 10rpx;
+  height: 270rpx;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
 .j-icon-item{
+  flex: 1 1 auto;
+  box-sizing: content-box;
   text-align: center;
   width: 100rpx;
   height: 100rpx;
-  margin: 5px;
   color: #777;
+  /* padding: 10rpx;  */
+  /* margin: 10rpx;  */
 }
 .j-icon-item > text:first-child{
+  display: inline-block;
   font-size: 25px;
   background-color: #eee;
+  /* box-shadow: 0 0 0 10rpx #333; */
   border-radius: 50%;
-  padding: 5px;
+  padding: 10rpx;
 }
 
 .j-icon-item > text:last-child {
+  display: block;
   font-size: 10px;
-  line-height: 2em;
+  /* line-height: 2em; */
 }
 
 ::-webkit-scrollbar {
