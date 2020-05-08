@@ -1,11 +1,43 @@
 <!--components/keyboard/keyboard.wxml-->
 
+<view style="width: 50%; ">
+
+  <van-tabs type="card" color="var(--cyan)">
+    <van-tab title="支出"></van-tab>
+  <van-tab title="收入"></van-tab>
+  </van-tabs>
+</view>
+
+<view class="j-keyboard-field">
+  <text >￥</text>
+  <text >{{acount}}</text>
+  
+</view>
+
+<scroll-view class="j-icon-list" scroll-with-animation enable-flex scroll-x >
+  <view
+    class="j-icon-item"
+    wx:for="{{billTypes}}"
+    wx:key="index"
+    id="main-{{index}}"
+    scroll-into-view="main-{{MainCur}}"
+    data-id="{{index}}"
+  >
+  
+  <text class="cuIcon-{{item.icon}}"></text>
+
+  <text>\n {{item.name}}</text>
+  
+  </view>
+  <view style="width: 200rpx;height: 1px"></view>
+</scroll-view>
+
 
 <view class="j-keyboard-box">
   <view class="toolbar">
-    <view>
+    <view class="btn">
       <text class="cuIcon-calendar"></text>
-      <text style="color:red" class="cuIcon-pic"></text>
+      <text class="cuIcon-pic"></text>
     </view>
 
     <view class="remark">
@@ -19,21 +51,20 @@
     </view>
   </view> 
   <!-- <view class="remark">备注</view> -->
-  <view >1</view>
-  <view >2</view>
-  <view >3</view>
-  <view class="del">
+  <view data-v="1" bind:tap="onInput">1</view>
+  <view data-v="2" bind:tap="onInput">2</view>
+  <view data-v="3" bind:tap="onInput">3</view>
+  <view data-v="del" class="del" bind:tap="onInput">
     <text class="cuIcon-backdelete lg "></text>
-    <!-- lg text-gray -->
   </view>
-  <view >4</view>
-  <view >5</view>
-  <view >6</view>
-  <view class="ok">支出</view>
-  <view >7</view>
-  <view >8</view>
-  <view >9</view>
-  <view class="zero">0</view>
-  <view >.</view>
+  <view data-v="4" bind:tap="onInput">4</view>
+  <view data-v="5" bind:tap="onInput">5</view>
+  <view data-v="6" bind:tap="onInput">6</view>
+  <view data-v="ok" bind:tap="onInput" class="ok">支出</view>
+  <view data-v="7" bind:tap="onInput" >7</view>
+  <view data-v="8" bind:tap="onInput" >8</view>
+  <view data-v="9" bind:tap="onInput" >9</view>
+  <view data-v="0" bind:tap="onInput" class="zero">0</view>
+  <view data-v="." bind:tap="onInput" >.</view>
 
 </view>

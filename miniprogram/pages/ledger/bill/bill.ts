@@ -1,7 +1,7 @@
 const app = getApp() as IAppOption
 Page({
     data: {
-        show: false,
+        show: true,
         CustomBar: app.globalData.CustomBar
     },
     // onClose(){
@@ -10,12 +10,9 @@ Page({
     //     })
     // }
     onAdd(){
-        wx.navigateTo({
-            url: "/pages/ledger/bill/bill_form/bill_form"
+        this.setData({
+            show: true
         })
-        // this.setData({
-        //     show: true
-        // })
     },
     onClose(){
         this.setData({

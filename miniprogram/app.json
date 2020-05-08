@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/ledger/bill/bill_form/bill_form",
     "pages/ledger/home",
+    "pages/ledger/bill/bill_form/bill_form",
     "pages/index/index",
     "pages/login/login",
     "pages/about/home/home",
@@ -20,6 +20,9 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
     "van-sidebar": "@vant/weapp/sidebar/index",
     "van-sidebar-item": "@vant/weapp/sidebar-item/index",
     "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",

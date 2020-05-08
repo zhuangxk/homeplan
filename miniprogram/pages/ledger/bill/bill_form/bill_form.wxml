@@ -14,11 +14,11 @@
 
 </cu-custom>
 
-<view style="padding:20rpx">
+<!-- <view style="padding:20rpx">
   <van-button plain size="small" icon="underway-o" >2020-4-30</van-button>
   <van-button style="margin-left: 20rpx" plain size="small" icon="edit" >备注</van-button>
 
-</view>
+</view> -->
 
 <!-- <view class="cu-bar bg-white search fixed" style="top:200px">
   <view class="search-form round">
@@ -33,7 +33,7 @@
   </view>
 </view> -->
 
-<view>
+<!-- <view>
 
   <view class="j-HorizontalBox"> 
     <scroll-view style="height: calc(100vh - 620rpx - {{CustomBar}}px - 46px - 100rpx );" class="j-Horizontal-main" scroll-with-animation enable-flex scroll-x >
@@ -50,33 +50,6 @@
     </scroll-view>
   </view>
 
-  <!-- <view class="VerticalBox">
-    <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:500rpx">
-      <view class=" {{index==TabCur?'text-green cur':''}}" wx:for="{{list}}" wx:key bindtap='tabSelect' data-id="{{index}}">
-        Tab-{{item.name}}
-      </view>
-    </scroll-view>
-    <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:500rpx" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
-      <view class="padding-top padding-lr" wx:for="{{list}}" wx:key id="main-{{index}}">
-        <view class='cu-bar solid-bottom bg-white'>
-          <view class='action'>
-            <text class='cuIcon-title text-green'></text> Tab-{{item.name}} </view>
-        </view>
-        <view>
-          <text class="cuIcon-favorfill" />  
-          <text>  
-            蔬菜
-          </text>
-          <text class="cuIcon-favorfill" />  
-          <text>  
-            蔬菜
-          </text>
-        </view>
-
-      </view>
-    </scroll-view>
-  </view> -->
-
-</view>
+</view> -->
 
 <keyboard class="j-bill-form-keyboard" />

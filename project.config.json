@@ -17,6 +17,7 @@
 		"es6": false,
 		"enhance": false,
 		"postcss": true,
+		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
@@ -31,7 +32,8 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"bundle": false
 	},
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

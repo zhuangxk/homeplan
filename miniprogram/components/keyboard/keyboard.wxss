@@ -1,7 +1,6 @@
 /* components/keyboard/keyboard.wxss */
 
 .j-keyboard-box{
-  /* background-color: #fff; */
   display: grid;
   grid-template-columns: repeat(3, 180rpx) 210rpx;
   grid-template-rows:  100rpx 100rpx 100rpx 100rpx 100rpx;
@@ -9,22 +8,22 @@
   justify-items: center;
   align-items: center;
   gap: 4rpx;
-  /* padding: 20rpx; */
-  /* background-color: aqua; */
-
+  background-color: #eee;
 }
 
 .j-keyboard-box > view{
-  /* border: 1px solid #565656; */
   background-color: white;
   text-align: center;
   line-height: 100rpx;
   font-size: 50rpx;
-  /* width: 100rpx; */
-  /* height: 100rpx; */
   width: 100%;
   height: 100%;
-  /* border-radius: 50%; */
+}
+.j-keyboard-box > view:active{
+  background-color: #ddd;
+}
+.j-keyboard-box > .toolbar:active{
+  background-color: #fff;
 }
 
 .j-keyboard-box > .del {
@@ -55,11 +54,17 @@
   font-size: 20px;
 }
 
+.j-keyboard-box > .toolbar > .btn {
+  flex: 1;
+  display: flex;
+  justify-content:space-around;
+}
 .j-keyboard-box > .toolbar > .remark {
   width: 75%;
   text-align: right;
   position: relative;
   font-size: 14px;
+  padding: 0 20rpx;
 }
 
 .j-keyboard-box > .toolbar > .remark > view{
@@ -85,4 +90,83 @@
   height: 100%;
   padding: 5px 21px;
   caret-color: var(--cyan);
+}
+@keyframes blink {
+  0%{
+    background-color: white;
+  }
+  50% {
+    background-color: var(--cyan);
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+.j-keyboard-field {
+  font-size: 30px;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1px solid #ddd;
+  margin: 10rpx 30rpx;
+  font-weight: bold;
+}
+.j-keyboard-field > text:first-child {
+  font-size: 20px;
+}
+
+.j-keyboard-field > text:last-child:after{  
+    content:'';
+    display: inline-block;
+    margin-left: 3px;
+    width:1px;
+    height:55rpx;
+    animation: blink 1s infinite steps(1, start);
+}
+
+.j-icon-list{
+  margin-top: 20rpx;
+  height: 250rpx;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.j-icon-item{
+  text-align: center;
+  width: 100rpx;
+  height: 100rpx;
+  margin: 5px;
+  color: #777;
+}
+.j-icon-item > text:first-child{
+  font-size: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.j-icon-item > text:last-child {
+  font-size: 10px;
+  line-height: 2em;
+}
+
+::-webkit-scrollbar {
+  display: block;
+  width: 2px;
+  height: 3px;
+  color:#fff;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 10px rgba(222, 222, 222, 0.3);
+  box-shadow: inset 0 0 6px rgba(222, 222, 222, .3);
+  border-radius: 2px;
+  background-color:#fff;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: #eee;
 }

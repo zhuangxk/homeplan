@@ -38,13 +38,11 @@
   show="{{ show }}"
   round
   position="bottom"
-  custom-style="height: 65%"
+  custom-style="height: 1000rpx"
   bind:close="onClose"
 >
 
- <van-field label="￥"
-  hold-keyboard
-  type="number" value="{{ value }}" placeholder="请输入金额"  bind:change="onChange" />
+<keyboard class="j-bill-form-keyboard" />
 
 
 </van-popup>

@@ -42,3 +42,10 @@
     background-color: var(--ghostWhite);
     z-index: 1;
 }
+
+.j-bill-form-keyboard{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
