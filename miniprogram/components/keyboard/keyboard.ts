@@ -4,49 +4,60 @@ Component({
     styleIsolation: 'apply-shared'
   },
   data: {
+    minDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
+    maxDate: new Date().getTime(),
     max: 9999999,
     min: 0,
     remark: '',
     acount: '',
     date: '',
+    imgPopupShow: false,
+    acountPopupShow: false,
+    datePopupShow: false,
     typing: false,
     MainCur: 0,
+    form: {
+      billTypeId: null
+    },
+    fileList: [],
     billTypes: [{ id: 0, name: '购物', icon: 'close' }, 
-    { id: 1, name: '购物', icon: 'close' }, 
-    { id: 2, name: '购物', icon: 'close' }, 
-    { id: 3, name: '购物', icon: 'close' }, 
-    { id: 4, name: '购物', icon: 'close' }, 
-    { id: 5, name: '购物', icon: 'close' },
-    { id: 6, name: '购物', icon: 'close' }, 
-    { id: 7, name: '购物', icon: 'close' }, 
-    { id: 8, name: '购物', icon: 'close' }, 
-    { id: 9, name: '购物', icon: 'close' }, 
-    { id: 10, name: '购物', icon: 'close' }, 
-    { id: 11, name: '购物', icon: 'close' },
-    { id: 12, name: '购物', icon: 'close' },
-    { id: 13, name: '购物', icon: 'close' },
-    { id: 14, name: '购物', icon: 'close' }, 
-    { id: 15, name: '购物', icon: 'close' }],
+    { id: 1, name: '购物1', icon: 'close' }, 
+    { id: 2, name: '购物2', icon: 'close' }, 
+    { id: 3, name: '购物3', icon: 'close' }, 
+    { id: 4, name: '购物4', icon: 'close' }, 
+    { id: 5, name: '购物5', icon: 'close' },
+    { id: 6, name: '购物6', icon: 'close' }, 
+    { id: 7, name: '购物7', icon: 'close' }, 
+    { id: 8, name: '购物8', icon: 'close' }, 
+    { id: 9, name: '购物9', icon: 'close' }, 
+    { id: 10, name: '购物10', icon: 'close' }, 
+    { id: 11, name: '购物11', icon: 'close' },
+    { id: 12, name: '购物12', icon: 'close' },
+    { id: 13, name: '购物13', icon: 'close' },
+    { id: 14, name: '购物14', icon: 'close' }, 
+    { id: 15, name: '购物15', icon: 'close' }],
   },
   methods: {
-    onInput(e: any){
+    onInput(e: any): void{
       const value = e.currentTarget.dataset.v;
-      console.log('----', e)
       if(!value) return
       switch (value) {
         case 'date':
-          this.setDate()
+          this.date()
+          return
+        case 'acount':
+          this.acount()
           return
         case 'ok':
           this.ok()
           return
-
         case 'del':
           this.del()
+          wx.vibrateShort()
           return;
-          
         default:
           this.input(value)
+          wx.vibrateShort()
           return;
       }
     },
@@ -57,28 +68,25 @@ Component({
         acount: value
       })
     },
-    setDate(): void{
-      ;
+    date(): void{
+      this.setData({
+        datePopupShow: true
+      })
     },
     ok(): void{
       ;
     },
+    acount(): void{
+      this.setData({
+        acountPopupShow: true
+      })
+    },
     input(val: string): void{
-      console.log('input')
       const value = this.format(val)
       this.setData({
         acount: value
       })
     },
-    // filter illegal characters
-    filter: function (value: string): string {
-      value = value.replace(/[^0-9.-]/g, '');
-      if (this.data.integer && value.indexOf('.') !== -1) {
-        value = value.split('.')[0];
-      }
-      return value;
-    },
-    // limit value range
     format: function (val: any) {
       if (this.data.acount.indexOf('.') > -1) {
         if (val === '.'){
@@ -108,23 +116,6 @@ Component({
       return value
 
     },
-    getNum(val: string): number{
-      const n = parseFloat(val)
-      return n
-    },
-    checkNum(val: string): boolean {
-      const n = this.getNum(val)
-      console.log(n)
-      if(n>1000000){
-        wx.showToast({
-          title: '数值太大',
-          icon: 'none',
-          duration: 2000
-        })
-        return false
-      }
-      return true
-    },
     onRemarkFocus(e: any): void {
       console.log(e)
       this.setData({
@@ -136,6 +127,46 @@ Component({
       this.setData({
         typing: false,
         remark: value
+      })
+    },
+    onBillTypeTap(e: any): void {
+      const billTypeId = e.currentTarget.dataset.id;
+      if(!billTypeId) return
+      this.setData({
+        typing: false,
+        form: {
+          ...this.data.form,
+          billTypeId
+        }
+      })
+      wx.vibrateShort()
+    },
+    onImgBtnTap(): void{
+      this.setData({
+        imgPopupShow: true
+      })
+    },
+    onImgPopupClose(): void{
+      this.setData({
+        imgPopupShow: false
+      })
+    },
+    onAcountPopupClose(): void{
+      this.setData({
+        acountPopupShow: false
+      })
+    },
+    onDatePopupClose(): void{
+      this.setData({
+        datePopupShow: false
+      })
+    },
+    afterRead(){
+
+    },
+    onConfirm(){
+      this.setData({
+        datePopupShow: false
       })
     }
   }

@@ -1,10 +1,12 @@
 <!--components/keyboard/keyboard.wxml-->
 
-<view style="width: 50%; ">
+<view style="width: 75%; ">
 
   <van-tabs type="card" color="var(--cyan)">
     <van-tab title="支出"></van-tab>
-  <van-tab title="收入"></van-tab>
+    <van-tab title="转账"></van-tab>
+    <van-tab title="收入"></van-tab>
+
   </van-tabs>
 </view>
 
@@ -16,12 +18,13 @@
 
 <scroll-view class="j-icon-list" scroll-with-animation enable-flex scroll-x >
   <view
-    class="j-icon-item"
+    class="j-icon-item {{form.billTypeId == item.id ? 'active' : ''}}"
     wx:for="{{billTypes}}"
     wx:key="index"
     id="main-{{index}}"
     scroll-into-view="main-{{MainCur}}"
-    data-id="{{index}}"
+    data-id="{{item.id}}"
+    bind:tap="onBillTypeTap"
   >
   
   <text class="cuIcon-{{item.icon}}"></text>
@@ -35,7 +38,7 @@
 
 <view class="j-keyboard-box">
   <view class="toolbar">
-    <view class="btn">
+    <view class="btn" bind:tap="onImgBtnTap">
       <text class="cuIcon-pic"></text>
     </view>
 
@@ -53,13 +56,19 @@
   <view data-v="1" bind:tap="onInput">1</view>
   <view data-v="2" bind:tap="onInput">2</view>
   <view data-v="3" bind:tap="onInput">3</view>
+  <view data-v="acount" bind:tap="onInput" style="font-size:40rpx">
+    支付宝
+  </view>
+
+
+  <view data-v="4" bind:tap="onInput">4</view>
+  <view data-v="5" bind:tap="onInput">5</view>
+  <view data-v="6" bind:tap="onInput">6</view>
   <view data-v="date" bind:tap="onInput" style="font-size:40rpx">
     <!-- 12月29日 -->
     今日
   </view>
-  <view data-v="4" bind:tap="onInput">4</view>
-  <view data-v="5" bind:tap="onInput">5</view>
-  <view data-v="6" bind:tap="onInput">6</view>
+
   <view data-v="ok" bind:tap="onInput" class="ok">支出</view>
   <view data-v="7" bind:tap="onInput" >7</view>
   <view data-v="8" bind:tap="onInput" >8</view>
@@ -72,3 +81,50 @@
 
 
 </view>
+
+
+<van-popup
+  show="{{ imgPopupShow }}"
+  round
+  closeable
+  bind:close="onImgPopupClose"
+  position="bottom"
+  custom-style="height: 500rpx"
+>
+   
+  <view style="margin: 200rpx 0 0 100rpx">
+    <van-uploader 
+    file-list="{{ fileList }}" 
+    upload-text="上传图片"
+    use-before-read
+    max-count="2" 
+    bind:after-read="afterRead" />
+  </view>
+  
+</van-popup>
+
+
+<van-popup
+  show="{{ acountPopupShow }}"
+  round
+  closeable
+  bind:close="onAcountPopupClose"
+  position="bottom"
+  custom-style="height: 500rpx"
+>
+  <view style="margin: 200rpx 100rpx">
+    账户列表
+  </view>
+</van-popup>
+
+
+<van-calendar
+  min-date="{{ minDate }}"
+  max-date="{{ maxDate }}"
+  color="var(--cyan)" 
+  show-subtitle="{{ false }}"
+  show="{{ datePopupShow }}" 
+  bind:close="onDatePopupClose" 
+  bind:confirm="onConfirm" />
+
+

@@ -32,9 +32,9 @@
 }
 
 .j-keyboard-box > .ok {
-  grid-row: 3 / 6;
+  grid-row: 4 / 6;
   grid-column: 4 / 5;
-  line-height: 300rpx;
+  line-height: 200rpx;
   background-color: var(--cyan);
 }
 
@@ -139,6 +139,12 @@
   /* padding: 10rpx;  */
   /* margin: 10rpx;  */
 }
+
+.j-icon-list .active > text:first-child {
+  background-color: var(--cyan);
+  color: #fff;
+}
+
 .j-icon-item > text:first-child{
   display: inline-block;
   font-size: 25px;
