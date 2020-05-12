@@ -5,7 +5,7 @@
         <van-icon class="ledger-nav-btn" name="apps-o"  size="1.5em" />
         </view>
       <view slot="content">
-         共享账本
+         {{defaultLedger.title}}
          <!-- <van-button color="var(--cyan)" icon="star-o" size="small" type="primary">默认账本</van-button> -->
       </view>
 

@@ -63,7 +63,6 @@ Component({
     },
     del(): void{
       const value = this.data.acount.substring(0, this.data.acount.length - 1)
-      console.log('del',value)
       this.setData({
         acount: value
       })
@@ -116,8 +115,7 @@ Component({
       return value
 
     },
-    onRemarkFocus(e: any): void {
-      console.log(e)
+    onRemarkFocus(): void {
       this.setData({
         typing: true
       })

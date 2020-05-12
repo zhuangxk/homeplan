@@ -27,3 +27,17 @@ export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<
     data: data
   })
 }
+
+export async function getLedgers(): Promise<Function>{
+  return await http({
+    url: '/v1/ledgers',
+    method: 'GET'
+  })
+}
+
+export async function getDefaultLedger(): Promise<Function>{
+  return await http({
+    url: '/v1/defaultLedger',
+    method: 'GET'
+  })
+}

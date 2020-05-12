@@ -1,2 +1,21 @@
-<!--miniprogram/pages/ledger/setting/setting.wxml-->
-<text>miniprogram/pages/ledger/setting/setting.wxml</text>
+<van-cell value="账本" icon="shop-o" is-link>
+  <view slot="title">
+    <view class="van-cell-text">单元格</view>
+    <van-tag type="danger">标签</van-tag>
+  </view>
+</van-cell>
+<van-cell-group title="分组1">
+  <van-cell title="账本" value="内容" />
+</van-cell-group>
+<van-cell-group title="分组2">
+  <van-cell title="账户" value="内容" />
+</van-cell-group>
+<van-cell-group title="分组2">
+  <van-cell title="预算" value="内容" />
+</van-cell-group>
+<van-cell-group title="分组2">
+  <van-cell title="账单类型" value="内容" />
+</van-cell-group>
+<van-cell-group title="分组2">
+  <van-cell title="账本成员" value="内容" />
+</van-cell-group>

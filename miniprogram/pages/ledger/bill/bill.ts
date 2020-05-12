@@ -1,7 +1,7 @@
 const app = getApp() as IAppOption
 Page({
     data: {
-        show: true,
+        show: false,
         CustomBar: app.globalData.CustomBar
     },
     // onClose(){

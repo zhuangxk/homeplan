@@ -3,7 +3,8 @@
 import { uploadUserInfo } from './api/index'
 App<IAppOption>({
   globalData: { 
-    logged: false
+    isLogin: false,
+    ledger: {}
   },
   userInfoReadyCallback(data: WechatMiniprogram.GetUserInfoSuccessCallbackResult){
     uploadUserInfo(data.userInfo).then(

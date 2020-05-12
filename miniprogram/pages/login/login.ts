@@ -8,7 +8,7 @@ Page({
   login(e: any) {
     if(e.detail.errMsg == 'getUserInfo:ok'){
       app.globalData.userInfo = e.detail.userInfo
-      app.globalData.logged = true
+      app.globalData.isLogin = true
       app.userInfoReadyCallback(e.detail)
       wx.redirectTo({
         url: '/pages/index/index'

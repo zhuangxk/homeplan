@@ -7,7 +7,8 @@ interface IAppOption {
     StatusBar?: number;
     Custom?: WechatMiniprogram.Rect;
     CustomBar?: number;
-    logged?: boolean;
+    isLogin?: boolean;
+    ledger?: any;
   };
   getUserInfo: Function;
   userInfoReadyCallback: WechatMiniprogram.GetUserInfoSuccessCallback;
