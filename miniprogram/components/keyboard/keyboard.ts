@@ -1,7 +1,14 @@
-
+import { getBillTypes } from '../../api/index'
 Component({
   options: {
     styleIsolation: 'apply-shared'
+  },
+  lifetimes: {
+    attached(): void{
+      this.getBillTypes(res:any => {
+        console.log(res)
+      })
+    }
   },
   data: {
     minDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
