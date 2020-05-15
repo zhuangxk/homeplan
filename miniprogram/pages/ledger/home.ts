@@ -12,11 +12,10 @@ Page({
         // event.detail 的值为当前选中项的索引
         this.setData({ active: event.detail });
     },
-    onLoad(): void {
-        getDefaultLedger().then(res=>{
-            this.setData({
-                defaultLedger: res
-            })
+    async onLoad() {
+        const defaultLedger = await getDefaultLedger()
+        this.setData({
+            defaultLedger
         })
     }
 })

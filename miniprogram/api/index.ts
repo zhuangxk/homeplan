@@ -1,6 +1,6 @@
 import http from './http'
 
-const app = getApp() as IAppOption
+
 // 获取token
 export function login(){
   return new Promise((resolve, reject)=>{
@@ -44,8 +44,7 @@ export async function getDefaultLedger(): Promise<Function>{
   })
 }
 
-export async function getBillTypes(): Promise<Function> {
-  const { id } = app.globalData.ledger
+export async function getBillTypes( id: number): Promise<Function> {
   return await http({
     url: `/v1/ledger/${id}/bill_type`,
     method: 'GET'

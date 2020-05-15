@@ -2,10 +2,10 @@
 
 <view style="width: 75%; ">
 
-  <van-tabs type="card" color="var(--cyan)">
-    <van-tab title="支出"></van-tab>
-    <van-tab title="转账"></van-tab>
-    <van-tab title="收入"></van-tab>
+  <van-tabs active="{{1}}" type="card" color="var(--cyan)" bind:change="onTabChange">
+    <van-tab name="{{1}}" title="支出"></van-tab>
+    <van-tab name="{{2}}" title="转账"></van-tab>
+    <van-tab name="{{3}}" title="收入"></van-tab>
 
   </van-tabs>
 </view>
@@ -19,7 +19,7 @@
 <scroll-view class="j-icon-list" scroll-with-animation enable-flex scroll-x >
   <view
     class="j-icon-item {{form.billTypeId == item.id ? 'active' : ''}}"
-    wx:for="{{billTypes}}"
+    wx:for="{{types[typeActive]}}"
     wx:key="index"
     id="main-{{index}}"
     scroll-into-view="main-{{MainCur}}"

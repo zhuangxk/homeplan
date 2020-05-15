@@ -1,16 +1,45 @@
-import { getBillTypes } from '../../api/index'
+// import { getBillTypes } from '../../api/index'
 Component({
   options: {
     styleIsolation: 'apply-shared'
   },
   lifetimes: {
-    attached(): void{
-      this.getBillTypes(res:any => {
-        console.log(res)
-      })
-    }
+    // attached(): void{
+    //   getBillTypes().then(res=>{
+    //     console.log(res)
+    //   })
+    // }
+  },
+  properties: {
+      billTypes: Array
+  },
+  observers: {
+      "billTypes"(val: AnyArray): void {
+        const types = {} as Record<number, AnyArray>
+        val.forEach(item=>{
+          types[item.type] = types[item.type] || []
+          types[item.type].push(item)
+        })
+        this.setData({
+          types
+        })
+
+      }
   },
   data: {
+    types: {
+      1: [] as AnyArray,
+      2: [] as AnyArray,
+      3: [] as AnyArray
+    } as Record<number, AnyArray>,
+    typeActive: 1,
+    formdata: {
+      "amount": 1313.3,
+      "bill_type_id": 1,
+      "bill_time": "2020-04-19T16:22:35.591Z",
+      "ledger_id": 1,
+      "comment": ""
+    },
     minDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
     maxDate: new Date().getTime(),
     max: 9999999,
@@ -26,23 +55,7 @@ Component({
     form: {
       billTypeId: null
     },
-    fileList: [],
-    billTypes: [{ id: 0, name: '购物', icon: 'close' }, 
-    { id: 1, name: '购物1', icon: 'close' }, 
-    { id: 2, name: '购物2', icon: 'close' }, 
-    { id: 3, name: '购物3', icon: 'close' }, 
-    { id: 4, name: '购物4', icon: 'close' }, 
-    { id: 5, name: '购物5', icon: 'close' },
-    { id: 6, name: '购物6', icon: 'close' }, 
-    { id: 7, name: '购物7', icon: 'close' }, 
-    { id: 8, name: '购物8', icon: 'close' }, 
-    { id: 9, name: '购物9', icon: 'close' }, 
-    { id: 10, name: '购物10', icon: 'close' }, 
-    { id: 11, name: '购物11', icon: 'close' },
-    { id: 12, name: '购物12', icon: 'close' },
-    { id: 13, name: '购物13', icon: 'close' },
-    { id: 14, name: '购物14', icon: 'close' }, 
-    { id: 15, name: '购物15', icon: 'close' }],
+    fileList: []
   },
   methods: {
     onInput(e: any): void{
@@ -166,12 +179,18 @@ Component({
         datePopupShow: false
       })
     },
-    afterRead(){
-
+    afterRead(): void{
+      ;
     },
-    onConfirm(){
+    onConfirm(): void{
       this.setData({
         datePopupShow: false
+      })
+    },
+    onTabChange(e: any): void{
+      console.log(e.detail.name)
+      this.setData({
+        typeActive : e.detail.name
       })
     }
   }

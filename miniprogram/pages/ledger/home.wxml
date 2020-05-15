@@ -12,7 +12,7 @@
   </cu-custom>
 
 
-  <bill wx:if="{{active==0}}"></bill>
+  <bill wx:if="{{active==0}}" ledgerId="{{defaultLedger.id}}" ></bill>
   <analysis wx:if="{{active==1}}"></analysis>
   <setting wx:if="{{active==2}}"></setting>
 
