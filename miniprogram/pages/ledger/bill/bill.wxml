@@ -42,7 +42,7 @@
   bind:close="onClose"
 >
 
-<keyboard billTypes="{{BillTypes}}" accounts="{{accounts}}" class="j-bill-form-keyboard" />
+<keyboard ledgerId="{{ledgerId}}" class="j-bill-form-keyboard" />
 
 
 </van-popup>

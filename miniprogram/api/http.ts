@@ -1,10 +1,11 @@
 // const BaseUrl = 'http://172.17.13.187:5000'
-const BaseUrl = 'http://localhost:5000'
+// const BaseUrl = 'http://localhost:5000'
+const BaseUrl = 'http://192.168.0.107:5000'
 import Base64 from '../utils/base64'
 import { login } from './index'
 
 
-function getToken(noToken?: boolean): Promise<Function>{
+function getToken(noToken?: boolean): Promise<string>{
   return new Promise((resolve, reject)=>{
     if (noToken){
       return resolve()
@@ -20,20 +21,20 @@ function getToken(noToken?: boolean): Promise<Function>{
       if((exp - cur) > 1000 * 60 * 10 ){
         return resolve(token)
       } else {
-        login().then((t: any) => {
+        login().then( t => {
           return resolve(t)
         })
       }
     } catch (error) {
       console.log('token 解析失败, 自动登录')
-      login().then((t: any) => {
+      login().then(t => {
         resolve(t)
       }).catch(reject)
     }    
   })
 }
 
-export default (option: WechatMiniprogram.RequestOption, noToken?: boolean): Promise<Function> => {
+export default (option: WechatMiniprogram.RequestOption, noToken?: boolean): Promise<any> => {
   return new Promise((resolve, reject)=>{
     getToken(noToken).then((token)=>{
       wx.request({

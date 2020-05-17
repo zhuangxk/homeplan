@@ -16,20 +16,18 @@
   
 </view>
 
-<scroll-view class="j-icon-list" scroll-with-animation enable-flex scroll-x >
+<scroll-view class="j-icon-list" scroll-with-animation enable-flex scroll-x>
   <view
     class="j-icon-item {{form.billTypeId == item.id ? 'active' : ''}}"
     wx:for="{{types[typeActive]}}"
     wx:key="index"
-    id="main-{{index}}"
-    scroll-into-view="main-{{MainCur}}"
     data-id="{{item.id}}"
     bind:tap="onBillTypeTap"
   >
   
-  <text class="cuIcon-{{item.icon}}"></text>
+  <text class="j-icon-item-icon cuIcon-{{item.icon}}"></text>
 
-  <text> {{item.name}}</text>
+  <text class="j-icon-item-text"> {{item.name}}</text>
   
   </view>
   <view style="width: 200rpx;height: 1px"></view>

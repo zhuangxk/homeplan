@@ -1,27 +1,28 @@
 const app = getApp() as IAppOption
-import { getBillTypes } from '../../../api/index'
 
 Component({
     data: {
         show: false,
         CustomBar: app.globalData.CustomBar,
-        BillTypes: [],
+        BillTypes: [] as any,
         accounts: []
     },
     properties: {
-        ledgerId: Number
+        ledgerId: {
+            type: Number
+        }  
     },
-    observers: {
-        "ledgerId" (val): void{
-            if(val){
-                getBillTypes(val).then(( res: any )=> {
-                    this.setData({
-                        BillTypes: res
-                    })
-                })
-            }
-        }
-    },
+    // observers: {
+    //     "ledgerId" (val): void{
+    //         if(val){
+    //             getBillTypes(val).then(( res: any )=> {
+    //                 this.setData({
+    //                     BillTypes: res
+    //                 })
+    //             })
+    //         }
+    //     }
+    // },
     methods: {
         onAdd(): void{
             this.setData({
@@ -36,15 +37,11 @@ Component({
         }        
     },
     lifetimes: {
-        attached(): void{
-            console.log('bill show')
-            console.log(this)
-        },
-        ready(): void{
-            console.log(this)
-        }
+        
+       
     }
 
 })
 
 export { }
+

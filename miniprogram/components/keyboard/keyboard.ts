@@ -1,29 +1,21 @@
-// import { getBillTypes } from '../../api/index'
+import { getBillTypes } from '../../api/index'
 Component({
   options: {
     styleIsolation: 'apply-shared'
   },
   lifetimes: {
-    // attached(): void{
-    //   getBillTypes().then(res=>{
-    //     console.log(res)
-    //   })
-    // }
+    ready(){
+      console.log('1231', this.properties.ledgerId) 
+
+      this.getTypes()  
+    }
   },
   properties: {
-      billTypes: Array
-  },
-  observers: {
-      "billTypes"(val: AnyArray): void {
-        const types = {} as Record<number, AnyArray>
-        val.forEach(item=>{
-          types[item.type] = types[item.type] || []
-          types[item.type].push(item)
-        })
-        this.setData({
-          types
-        })
-
+      ledgerId: {
+        type: Number,
+        observer(){
+          this.getTypes()  
+        }
       }
   },
   data: {
@@ -58,6 +50,22 @@ Component({
     fileList: []
   },
   methods: {
+    async getTypes(){
+      if (!this.properties.ledgerId){
+        return
+      }
+      const billTypes = await getBillTypes(this.properties.ledgerId)
+      const types = {} as Record<number, AnyArray>
+      billTypes.forEach(item => {
+        console.log(item)
+        console.log(item.type)
+        types[item.type] = types[item.type] || []
+        types[item.type].push(item)
+      })
+      this.setData({
+        types
+      })
+    },
     onInput(e: any): void{
       const value = e.currentTarget.dataset.v;
       if(!value) return

@@ -2,7 +2,7 @@ import http from './http'
 
 
 // 获取token
-export function login(){
+export function login(): Promise<string>{
   return new Promise((resolve, reject)=>{
     wx.login({
       success: res => {
@@ -10,7 +10,7 @@ export function login(){
           url:'/auth',
           data: {code: res.code }
         }, true)
-        .then((r: any) => {
+        .then(r => {
             wx.setStorageSync("token", r.token)
             resolve(r.token)
           }
@@ -22,7 +22,7 @@ export function login(){
 
 }
 
-export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<Function>{
+export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<AnyObject>{
   return await http({
     url: '/v1/user',
     method: 'POST',
@@ -30,21 +30,21 @@ export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<
   })
 }
 
-export async function getLedgers(): Promise<Function>{
+export async function getLedgers(): Promise<AnyObject>{
   return await http({
     url: '/v1/ledgers',
     method: 'GET'
   })
 }
 
-export async function getDefaultLedger(): Promise<Function>{
+export async function getDefaultLedger(): Promise<AnyObject>{
   return await http({
     url: '/v1/defaultLedger',
     method: 'GET'
   })
 }
 
-export async function getBillTypes( id: number): Promise<Function> {
+export async function getBillTypes( id: number): Promise<AnyArray> {
   return await http({
     url: `/v1/ledger/${id}/bill_type`,
     method: 'GET'
