@@ -19,3 +19,8 @@ export const formatTime = (date: Date): string => {
   )
 }
 
+export const formatMonthDate = (date: Date): string => { 
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  return `${month}月${day}日`
+}

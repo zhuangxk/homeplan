@@ -161,6 +161,13 @@
   /* line-height: 2em; */
 }
 
+.account-title{
+  text-align: center;
+  font-weight: bold;
+  line-height: 100rpx;
+}
+
+
 ::-webkit-scrollbar {
   display: block;
   width: 2px;

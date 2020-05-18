@@ -1,4 +1,5 @@
-import { getBillTypes, getAccounts } from '../../api/index'
+import { getAccounts, getBillTypes } from '../../api/index'
+import { formatMonthDate } from '../../utils/util'
 Component({
   options: {
     styleIsolation: 'apply-shared'
@@ -27,19 +28,19 @@ Component({
     accounts:[] as AnyArray,
     typeActive: 1,
     formdata: {
-      "amount": 1313.3,
+      "amount": "",
       "bill_type_id": 1,
-      "bill_time": "2020-04-19T16:22:35.591Z",
-      "ledger_id": 1,
+      "bill_time": new Date().toISOString(),
       "comment": ""
     },
     minDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
     maxDate: new Date().getTime(),
+    now: new Date().getTime(),
     max: 9999999,
     min: 0,
-    date: '',
+    billTime: '今日',
     imgPopupShow: false,
-    amountPopupShow: false,
+    accountPopupShow: false,
     datePopupShow: false,
     typing: false,
     MainCur: 0,
@@ -60,7 +61,7 @@ Component({
         types,
         formdata:{
           ...this.data.formdata,
-          "ledger_id": types[1][0]['id']
+          "bill_type_id": types[1][0]['id']
         }
       })
     },
@@ -80,8 +81,8 @@ Component({
         case 'date':
           this.date()
           return
-        case 'amount':
-          this.amount()
+        case 'account':
+          this.account()
           return
         case 'ok':
           this.ok()
@@ -97,10 +98,10 @@ Component({
       }
     },
     del(): void{
-      const value = this.data.form.amount.substring(0, this.data.form.amount.length - 1)
+      const value = this.data.formdata.amount.substring(0, this.data.formdata.amount.length - 1)
       this.setData({
-        form: {
-          ...this.data.form,
+        formdata: {
+          ...this.data.formdata,
           amount: value
         }
       })
@@ -113,34 +114,34 @@ Component({
     ok(): void{
       ;
     },
-    amount(): void{
+    account(): void{
       this.setData({
-        amountPopupShow: true
+        accountPopupShow: true
       })
     },
     input(val: string): void{
       const value = this.format(val)
       this.setData({
-        form: {
-          ...this.data.form,
+        formdata: {
+          ...this.data.formdata,
           amount: value
         }
       })
     },
     format: function (val: string): string {
-      if (this.data.form.amount.indexOf('.') > -1) {
+      if (this.data.formdata.amount.indexOf('.') > -1) {
         if (val === '.'){
-          return this.data.form.amount
+          return this.data.formdata.amount
         }
-        if(this.data.form.amount.split('.')[1].length >= 2){
-          return this.data.form.amount
+        if (this.data.formdata.amount.split('.')[1].length >= 2){
+          return this.data.formdata.amount
         }
       }
-      const value = this.data.form.amount + val
+      const value = this.data.formdata.amount + val
       if (val === '.') {
-        return this.data.form.amount + val
+        return this.data.formdata.amount + val
       }
-      if (this.data.form.amount === '0'){
+      if (this.data.formdata.amount === '0'){
         if(val !== '.' ){
           return val
         }
@@ -150,7 +151,7 @@ Component({
           title: '钱太多,数不过来啦',
           icon: 'none'
         })
-        return this.data.form.amount
+        return this.data.formdata.amount
       }
 
       return value
@@ -165,9 +166,9 @@ Component({
       const value = e.detail.value
       this.setData({
         typing: false,
-        form: {
-          ...this.data.form,
-          remark: value
+        formdata: {
+          ...this.data.formdata,
+          comment: value
         }
       })
     },
@@ -176,9 +177,9 @@ Component({
       if(!billTypeId) return
       this.setData({
         typing: false,
-        form: {
-          ...this.data.form,
-          billTypeId
+        formdata: {
+          ...this.data.formdata,
+          "bill_type_id": billTypeId
         }
       })
       wx.vibrateShort()
@@ -193,9 +194,9 @@ Component({
         imgPopupShow: false
       })
     },
-    onamountPopupClose(): void{
+    onAccountPopupClose(): void{
       this.setData({
-        amountPopupShow: false
+        accountPopupShow: false
       })
     },
     onDatePopupClose(): void{
@@ -206,8 +207,15 @@ Component({
     afterRead(): void{
       ;
     },
-    onConfirm(): void{
+    onConfirm(e): void{
+      const value = e.detail as Date
+
       this.setData({
+        formdata: {
+          ...this.data.formdata,
+          "bill_time": value.toISOString()
+        },
+        billTime: formatMonthDate(value),
         datePopupShow: false
       })
     },
@@ -215,9 +223,9 @@ Component({
       const typeActive = e.detail.name;
       this.setData({
         typeActive : e.detail.name,
-        form: {
-          ...this.data.form,
-          billTypeId: this.data.types[typeActive][0]['id']
+        formdata: {
+          ...this.data.formdata,
+          "bill_type_id": this.data.types[typeActive][0]['id']
         }
       })
     }

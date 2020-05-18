@@ -12,13 +12,13 @@
 
 <view class="j-keyboard-field">
   <text >￥</text>
-  <text >{{form.amount}}</text>
+  <text >{{formdata.amount}}</text>
   
 </view>
 
 <scroll-view class="j-icon-list" scroll-with-animation enable-flex scroll-x>
   <view
-    class="j-icon-item {{form.billTypeId == item.id ? 'active' : ''}}"
+    class="j-icon-item {{formdata.bill_type_id == item.id ? 'active' : ''}}"
     wx:for="{{types[typeActive]}}"
     wx:key="index"
     data-id="{{item.id}}"
@@ -41,9 +41,9 @@
     </view>
 
     <view class="remark">
-      <view style="opacity:{{typing?0:1}}"  bind:tap="onRemarkTap">{{form.remark || '备注'}}</view>
+      <view style="opacity:{{typing?0:1}}"  bind:tap="onRemarkTap">{{formdata.comment || '备注'}}</view>
       <input style="opacity:{{typing?1:0}}" 
-      value="{{form.remark}}" placeholder="备注" 
+      value="{{formdata.comment}}" placeholder="备注" 
       bindblur="onRemarkBlur"
       bindfocus="onRemarkFocus"
       bind:touchstart="onRemarkFocus"
@@ -54,7 +54,7 @@
   <view data-v="1" bind:tap="onInput">1</view>
   <view data-v="2" bind:tap="onInput">2</view>
   <view data-v="3" bind:tap="onInput">3</view>
-  <view data-v="amount" bind:tap="onInput" style="font-size:40rpx">
+  <view data-v="account" bind:tap="onInput" style="font-size:40rpx">
     支付宝
   </view>
 
@@ -63,8 +63,7 @@
   <view data-v="5" bind:tap="onInput">5</view>
   <view data-v="6" bind:tap="onInput">6</view>
   <view data-v="date" bind:tap="onInput" style="font-size:40rpx">
-    <!-- 12月29日 -->
-    今日
+    {{billTime}}
   </view>
 
   <view data-v="ok" bind:tap="onInput" class="ok">支出</view>
@@ -103,22 +102,33 @@
 
 
 <van-popup
-  show="{{ amountPopupShow }}"
+  show="{{ accountPopupShow }}"
   round
   closeable
-  bind:close="onamountPopupClose"
+  bind:close="onAccountPopupClose"
   position="bottom"
-  custom-style="height: 500rpx"
+  custom-style="height: 500rpx;"
 >
-  <view style="margin: 200rpx 100rpx">
-    账户列表
-  </view>
+<view class="account-title">我的账户</view> 
+<view style="height: 400rpx;overflow: auto;">
+  <van-radio-group value="{{ radio }}" bind:change="onChange">
+      <van-cell-group >
+        <van-cell wx:key="index" wx:for="{{accounts}}" title="{{item.name}}" clickable data-name="1" bind:click="onClick">
+          <van-radio slot="right-icon" name="1" />
+        </van-cell>
+      </van-cell-group>
+  </van-radio-group>
+</view>
+
+
+
 </van-popup>
 
 
 <van-calendar
   min-date="{{ minDate }}"
   max-date="{{ maxDate }}"
+  default-date="{{now}}"
   color="var(--cyan)" 
   show-subtitle="{{ false }}"
   show="{{ datePopupShow }}" 
