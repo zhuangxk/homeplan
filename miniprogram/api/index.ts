@@ -50,3 +50,10 @@ export async function getBillTypes( id: number): Promise<AnyArray> {
     method: 'GET'
   })
 }
+
+export async function getAccounts( id: number): Promise<AnyArray> {
+  return await http({
+    url: `/v1/ledger/${id}/accounts`,
+    method: 'GET'
+  })
+}

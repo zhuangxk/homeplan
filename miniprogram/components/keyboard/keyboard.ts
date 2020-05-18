@@ -1,22 +1,22 @@
-import { getBillTypes } from '../../api/index'
+import { getBillTypes, getAccounts } from '../../api/index'
 Component({
   options: {
     styleIsolation: 'apply-shared'
   },
   lifetimes: {
-    ready(){
-      console.log('1231', this.properties.ledgerId) 
-
+    ready(): void{
       this.getTypes()  
+      this.getAccounts()
     }
   },
   properties: {
-      ledgerId: {
-        type: Number,
-        observer(){
-          this.getTypes()  
-        }
-      }
+      ledgerId: Number
+  },
+  observers: {
+    ledgerId(): void {
+      this.getTypes()  
+      this.getAccounts()
+    }
   },
   data: {
     types: {
@@ -24,6 +24,7 @@ Component({
       2: [] as AnyArray,
       3: [] as AnyArray
     } as Record<number, AnyArray>,
+    accounts:[] as AnyArray,
     typeActive: 1,
     formdata: {
       "amount": 1313.3,
@@ -36,45 +37,51 @@ Component({
     maxDate: new Date().getTime(),
     max: 9999999,
     min: 0,
-    remark: '',
-    acount: '',
     date: '',
     imgPopupShow: false,
-    acountPopupShow: false,
+    amountPopupShow: false,
     datePopupShow: false,
     typing: false,
     MainCur: 0,
-    form: {
-      billTypeId: null
-    },
     fileList: []
   },
   methods: {
-    async getTypes(){
+    async getTypes(): Promise<void>{
       if (!this.properties.ledgerId){
         return
       }
       const billTypes = await getBillTypes(this.properties.ledgerId)
       const types = {} as Record<number, AnyArray>
       billTypes.forEach(item => {
-        console.log(item)
-        console.log(item.type)
         types[item.type] = types[item.type] || []
         types[item.type].push(item)
       })
       this.setData({
-        types
+        types,
+        formdata:{
+          ...this.data.formdata,
+          "ledger_id": types[1][0]['id']
+        }
       })
     },
-    onInput(e: any): void{
+    async getAccounts(): Promise<void>{
+      if (!this.properties.ledgerId){
+        return
+      }
+      const accounts = await getAccounts(this.properties.ledgerId)
+      this.setData({
+        accounts
+      })
+    },
+    onInput(e: AnyObject): void{
       const value = e.currentTarget.dataset.v;
       if(!value) return
       switch (value) {
         case 'date':
           this.date()
           return
-        case 'acount':
-          this.acount()
+        case 'amount':
+          this.amount()
           return
         case 'ok':
           this.ok()
@@ -90,9 +97,12 @@ Component({
       }
     },
     del(): void{
-      const value = this.data.acount.substring(0, this.data.acount.length - 1)
+      const value = this.data.form.amount.substring(0, this.data.form.amount.length - 1)
       this.setData({
-        acount: value
+        form: {
+          ...this.data.form,
+          amount: value
+        }
       })
     },
     date(): void{
@@ -103,31 +113,34 @@ Component({
     ok(): void{
       ;
     },
-    acount(): void{
+    amount(): void{
       this.setData({
-        acountPopupShow: true
+        amountPopupShow: true
       })
     },
     input(val: string): void{
       const value = this.format(val)
       this.setData({
-        acount: value
+        form: {
+          ...this.data.form,
+          amount: value
+        }
       })
     },
-    format: function (val: any) {
-      if (this.data.acount.indexOf('.') > -1) {
+    format: function (val: string): string {
+      if (this.data.form.amount.indexOf('.') > -1) {
         if (val === '.'){
-          return this.data.acount
+          return this.data.form.amount
         }
-        if(this.data.acount.split('.')[1].length >= 2){
-          return this.data.acount
+        if(this.data.form.amount.split('.')[1].length >= 2){
+          return this.data.form.amount
         }
       }
-      const value = this.data.acount + val
+      const value = this.data.form.amount + val
       if (val === '.') {
-        return this.data.acount + val
+        return this.data.form.amount + val
       }
-      if (this.data.acount === '0'){
+      if (this.data.form.amount === '0'){
         if(val !== '.' ){
           return val
         }
@@ -137,7 +150,7 @@ Component({
           title: '钱太多,数不过来啦',
           icon: 'none'
         })
-        return this.data.acount
+        return this.data.form.amount
       }
 
       return value
@@ -148,14 +161,17 @@ Component({
         typing: true
       })
     },
-    onRemarkBlur(e: any): void {
+    onRemarkBlur(e: AnyObject): void {
       const value = e.detail.value
       this.setData({
         typing: false,
-        remark: value
+        form: {
+          ...this.data.form,
+          remark: value
+        }
       })
     },
-    onBillTypeTap(e: any): void {
+    onBillTypeTap(e: AnyObject): void {
       const billTypeId = e.currentTarget.dataset.id;
       if(!billTypeId) return
       this.setData({
@@ -177,9 +193,9 @@ Component({
         imgPopupShow: false
       })
     },
-    onAcountPopupClose(): void{
+    onamountPopupClose(): void{
       this.setData({
-        acountPopupShow: false
+        amountPopupShow: false
       })
     },
     onDatePopupClose(): void{
@@ -195,10 +211,14 @@ Component({
         datePopupShow: false
       })
     },
-    onTabChange(e: any): void{
-      console.log(e.detail.name)
+    onTabChange(e: AnyObject): void{
+      const typeActive = e.detail.name;
       this.setData({
-        typeActive : e.detail.name
+        typeActive : e.detail.name,
+        form: {
+          ...this.data.form,
+          billTypeId: this.data.types[typeActive][0]['id']
+        }
       })
     }
   }

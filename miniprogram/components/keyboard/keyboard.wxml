@@ -12,7 +12,7 @@
 
 <view class="j-keyboard-field">
   <text >￥</text>
-  <text >{{acount}}</text>
+  <text >{{form.amount}}</text>
   
 </view>
 
@@ -41,9 +41,9 @@
     </view>
 
     <view class="remark">
-      <view style="opacity:{{typing?0:1}}"  bind:tap="onRemarkTap">{{remark || '备注'}}</view>
+      <view style="opacity:{{typing?0:1}}"  bind:tap="onRemarkTap">{{form.remark || '备注'}}</view>
       <input style="opacity:{{typing?1:0}}" 
-      value="{{remark}}" placeholder="备注" 
+      value="{{form.remark}}" placeholder="备注" 
       bindblur="onRemarkBlur"
       bindfocus="onRemarkFocus"
       bind:touchstart="onRemarkFocus"
@@ -54,7 +54,7 @@
   <view data-v="1" bind:tap="onInput">1</view>
   <view data-v="2" bind:tap="onInput">2</view>
   <view data-v="3" bind:tap="onInput">3</view>
-  <view data-v="acount" bind:tap="onInput" style="font-size:40rpx">
+  <view data-v="amount" bind:tap="onInput" style="font-size:40rpx">
     支付宝
   </view>
 
@@ -103,10 +103,10 @@
 
 
 <van-popup
-  show="{{ acountPopupShow }}"
+  show="{{ amountPopupShow }}"
   round
   closeable
-  bind:close="onAcountPopupClose"
+  bind:close="onamountPopupClose"
   position="bottom"
   custom-style="height: 500rpx"
 >
