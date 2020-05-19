@@ -29,9 +29,12 @@ Component({
     typeActive: 1,
     formdata: {
       "amount": "",
-      "bill_type_id": 1,
+      "bill_type_id": null,
       "bill_time": new Date().toISOString(),
-      "comment": ""
+      "comment": "",
+      "account_id": null as null | number,
+      "account_in_id": null as null | number,
+      "account_out_id": null as null | number, 
     },
     minDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
     maxDate: new Date().getTime(),
@@ -39,6 +42,7 @@ Component({
     max: 9999999,
     min: 0,
     billTime: '今日',
+    accountName: '现金',
     imgPopupShow: false,
     accountPopupShow: false,
     datePopupShow: false,
@@ -73,6 +77,7 @@ Component({
       this.setData({
         accounts
       })
+      this.setAccount(accounts[0].id)
     },
     onInput(e: AnyObject): void{
       const value = e.currentTarget.dataset.v;
@@ -227,6 +232,24 @@ Component({
           ...this.data.formdata,
           "bill_type_id": this.data.types[typeActive][0]['id']
         }
+      })
+    },
+    onAccountChange(e: AnyObject): void{
+      this.setAccount(e.detail)
+    }, 
+    onAccountClick(e: AnyObject): void{
+      const { name } = e.currentTarget.dataset;
+      this.setAccount(name)
+    },
+    setAccount(accountId: number): void{
+      const {name} = this.data.accounts.find(item=>item.id == accountId)
+      this.setData({
+        formdata: {
+          ...this.data.formdata,
+          "account_id": accountId
+        },
+        accountName: name,
+        accountPopupShow: false,
       })
     }
   }
