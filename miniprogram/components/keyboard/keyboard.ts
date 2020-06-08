@@ -1,8 +1,8 @@
-import { getAccounts, getBillTypes } from '../../api/index'
+import { getAccounts, getBillTypes, getOssToken } from '../../api/index'
 import { formatMonthDate } from '../../utils/util'
 Component({
   options: {
-    styleIsolation: 'apply-shared'
+    styleIsolation: 'shared'
   },
   lifetimes: {
     ready(): void{
@@ -48,7 +48,7 @@ Component({
     datePopupShow: false,
     typing: false,
     MainCur: 0,
-    fileList: []
+    fileList: [{ url: 'https://img.yzcdn.cn/vant/leaf.jpg', name: '图片1' },] as AnyArray
   },
   methods: {
     async getTypes(): Promise<void>{
@@ -102,6 +102,7 @@ Component({
           return;
       }
     },
+    // 删除键
     del(): void{
       const value = this.data.formdata.amount.substring(0, this.data.formdata.amount.length - 1)
       this.setData({
@@ -116,6 +117,7 @@ Component({
         datePopupShow: true
       })
     },
+    // 提交账单
     ok(): void{
       ;
     },
@@ -124,6 +126,7 @@ Component({
         accountPopupShow: true
       })
     },
+    // 键盘输入
     input(val: string): void{
       const value = this.format(val)
       this.setData({
@@ -133,6 +136,7 @@ Component({
         }
       })
     },
+    // 键盘数字控制
     format: function (val: string): string {
       if (this.data.formdata.amount.indexOf('.') > -1) {
         if (val === '.'){
@@ -209,8 +213,51 @@ Component({
         datePopupShow: false
       })
     },
-    afterRead(): void{
-      ;
+    // 上传图片
+    afterRead(event): void{
+      const self = this; // eslint-disable-line
+      const { file } = event.detail;
+      getOssToken().then(res => {
+        wx.uploadFile({
+          url: res.host,
+          filePath: file.path,
+          name: 'file',
+          formData: {
+            'name': new Date().getTime(),
+            'key' : res.dir + "${filename}",
+            'policy': res.policy,
+            'OSSAccessKeyId': res.accessid, 
+            'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
+            'callback' : res.callback,
+            'signature': res.signature
+
+          },
+          success(res) {
+            console.log(res)
+            if(res.statusCode == 200){
+              const data = JSON.parse(res.data)
+              const url = data.data.url
+              const id = data.data.id
+              const { fileList = [] } = self.data;
+              fileList.push({ ...file, url, id });
+              self.setData({ fileList });
+            } else {
+              wx.showToast({
+                title: '上传失败，请再稍后再试',
+                icon: 'none',
+                duration: 2000
+              })
+            }
+          },
+        });
+      })
+    },
+    // 删除图片
+    deletePic(e): void{
+      const { index } = e.detail
+      const { fileList = [] } = this.data;
+      fileList.splice(index,1)
+      this.setData({ fileList })
     },
     onConfirm(e): void{
       const value = e.detail as Date

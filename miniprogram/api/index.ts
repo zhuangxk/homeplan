@@ -57,3 +57,10 @@ export async function getAccounts( id: number): Promise<AnyArray> {
     method: 'GET'
   })
 }
+
+export async function getOssToken(): Promise<AnyObject> {
+  return await http({
+    url: `/v1/oss`,
+    method: 'GET'
+  })
+}

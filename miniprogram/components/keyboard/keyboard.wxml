@@ -1,21 +1,24 @@
 <!--components/keyboard/keyboard.wxml-->
 
+<!-- 账单类型tab -->
 <view style="width: 75%; ">
 
   <van-tabs active="{{1}}" type="card" color="var(--cyan)" bind:change="onTabChange">
     <van-tab name="{{1}}" title="支出"></van-tab>
-    <van-tab name="{{2}}" title="转账"></van-tab>
-    <van-tab name="{{3}}" title="收入"></van-tab>
+    <!-- <van-tab name="{{2}}" title="转账"></van-tab> -->
+    <van-tab name="{{2}}" title="收入"></van-tab>
 
   </van-tabs>
 </view>
 
+<!-- 金额显示 -->
 <view class="j-keyboard-field">
   <text >￥</text>
   <text >{{formdata.amount}}</text>
   
 </view>
 
+<!-- 类型图标 -->
 <scroll-view class="j-icon-list" scroll-with-animation enable-flex scroll-x>
   <view
     class="j-icon-item {{formdata.bill_type_id == item.id ? 'active' : ''}}"
@@ -33,7 +36,7 @@
   <view style="width: 200rpx;height: 1px"></view>
 </scroll-view>
 
-
+<!-- 键盘 -->
 <view class="j-keyboard-box">
   <view class="toolbar">
     <view class="btn" bind:tap="onImgBtnTap">
@@ -78,7 +81,7 @@
 
 </view>
 
-
+<!-- 图片上传 -->
 <van-popup
   show="{{ imgPopupShow }}"
   round
@@ -92,14 +95,16 @@
     <van-uploader 
     file-list="{{ fileList }}" 
     upload-text="上传图片"
-    use-before-read
+    accept="image"
     max-count="2" 
-    bind:after-read="afterRead" />
+    bind:after-read="afterRead"
+    bind:delete="deletePic" />
   </view>
   
 </van-popup>
 
 
+<!-- 账户列表 -->
 <van-popup
   show="{{ accountPopupShow }}"
   round
@@ -121,34 +126,8 @@
 </van-popup>
 
 
-<van-popup
-  show="{{ account2PopupShow }}"
-  round
-  closeable
-  bind:close="onAccount2PopupClose"
-  position="bottom"
-  custom-style="height: 800rpx;"
->
-  <view class="account-title">我的账户</view>
-  <view style="height: 700rpx;overflow: auto;">
-    <van-radio-group value="{{ formdata.account_id }}" bind:change="onAccountChange">
-      <van-cell-group>
-        <van-cell
-          wx:key="index"
-          wx:for="{{accounts}}"
-          clickable
-          title="{{item.name}}"
-          data-name="{{item.id}}"
-          bind:click="onAccountClick"
-        >
-          <van-radio checked-color="var(--cyan)" slot="right-icon" name="{{item.id}}" />
-        </van-cell>
-      </van-cell-group>
-    </van-radio-group>
-  </view>
-</van-popup>
 
-
+<!-- 日历 -->
 <van-calendar
   min-date="{{ minDate }}"
   max-date="{{ maxDate }}"
