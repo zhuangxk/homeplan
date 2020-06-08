@@ -1,5 +1,6 @@
-import { getAccounts, getBillTypes, getOssToken } from '../../api/index'
+import { getAccounts, getBillTypes, getOssToken, createBill } from '../../api/index'
 import { formatMonthDate } from '../../utils/util'
+
 Component({
   options: {
     styleIsolation: 'shared'
@@ -32,9 +33,7 @@ Component({
       "bill_type_id": null,
       "bill_time": new Date().toISOString(),
       "comment": "",
-      "account_id": null as null | number,
-      "account_in_id": null as null | number,
-      "account_out_id": null as null | number, 
+      "account_id": null as null | number
     },
     minDate: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
     maxDate: new Date().getTime(),
@@ -48,7 +47,7 @@ Component({
     datePopupShow: false,
     typing: false,
     MainCur: 0,
-    fileList: [{ url: 'https://img.yzcdn.cn/vant/leaf.jpg', name: '图片1' },] as AnyArray
+    fileList: [] as AnyArray
   },
   methods: {
     async getTypes(): Promise<void>{
@@ -119,7 +118,27 @@ Component({
     },
     // 提交账单
     ok(): void{
-      ;
+      if(this.data.formdata.amount == ""){
+        wx.showToast({
+          title: '请填写金额',
+          duration: 2000  
+        })
+        return
+      }
+      const pic = {} as AnyObject
+      const {fileList} = this.data
+      fileList[0] && (pic["pic_id1"] = fileList[0]['id'])
+      fileList[1] && (pic["pic_id2"] = fileList[1]['id'])
+      createBill(this.data.ledgerId,{
+        ...this.data.formdata,
+        ...pic
+      }).then(_=>{
+        wx.showToast({
+          title: "保存成功",
+          icon: 'success',
+          duration: 2000  
+        })
+      })
     },
     account(): void{
       this.setData({

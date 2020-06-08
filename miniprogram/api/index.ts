@@ -30,6 +30,7 @@ export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<
   })
 }
 
+// 账本列表
 export async function getLedgers(): Promise<AnyObject>{
   return await http({
     url: '/v1/ledgers',
@@ -37,6 +38,7 @@ export async function getLedgers(): Promise<AnyObject>{
   })
 }
 
+// 默认账本
 export async function getDefaultLedger(): Promise<AnyObject>{
   return await http({
     url: '/v1/defaultLedger',
@@ -44,6 +46,7 @@ export async function getDefaultLedger(): Promise<AnyObject>{
   })
 }
 
+// 账本类型列表
 export async function getBillTypes( id: number): Promise<AnyArray> {
   return await http({
     url: `/v1/ledger/${id}/bill_type`,
@@ -51,6 +54,7 @@ export async function getBillTypes( id: number): Promise<AnyArray> {
   })
 }
 
+// 账户列表
 export async function getAccounts( id: number): Promise<AnyArray> {
   return await http({
     url: `/v1/ledger/${id}/accounts`,
@@ -58,9 +62,19 @@ export async function getAccounts( id: number): Promise<AnyArray> {
   })
 }
 
+// OSS鉴权
 export async function getOssToken(): Promise<AnyObject> {
   return await http({
     url: `/v1/oss`,
     method: 'GET'
   })
 }
+
+// 创建账单
+export async function createBill(ledger_id: number, data: AnyObject): Promise<AnyObject>{
+  return await http({
+    url: `/v1/ledger/${ledger_id}/bill`,
+    method: 'POST',
+    data
+  })
+} 

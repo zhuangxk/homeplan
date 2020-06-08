@@ -40,7 +40,9 @@
 <view class="j-keyboard-box">
   <view class="toolbar">
     <view class="btn" bind:tap="onImgBtnTap">
-      <text class="cuIcon-pic"></text>
+      <!-- <text class="cuIcon-pic"></text>
+       -->
+      <van-icon name="photo-o" info="{{fileList.length || ''}}"></van-icon>
     </view>
 
     <view class="remark">
