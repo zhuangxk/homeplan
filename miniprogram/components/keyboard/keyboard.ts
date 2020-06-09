@@ -24,7 +24,6 @@ Component({
     types: {
       1: [] as AnyArray,
       2: [] as AnyArray,
-      3: [] as AnyArray
     } as Record<number, AnyArray>,
     accounts:[] as AnyArray,
     typeActive: 1,
@@ -138,6 +137,7 @@ Component({
           icon: 'success',
           duration: 2000  
         })
+        this.triggerEvent("success")
       })
     },
     account(): void{

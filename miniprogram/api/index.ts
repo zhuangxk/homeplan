@@ -71,10 +71,19 @@ export async function getOssToken(): Promise<AnyObject> {
 }
 
 // 创建账单
-export async function createBill(ledger_id: number, data: AnyObject): Promise<AnyObject>{
+export async function createBill(ledgerId: number, data: AnyObject): Promise<AnyObject>{
   return await http({
-    url: `/v1/ledger/${ledger_id}/bill`,
+    url: `/v1/ledger/${ledgerId}/bill`,
     method: 'POST',
     data
   })
 } 
+
+// 账单列表
+export async function getBills(ledgerId: number, query: AnyObject): Promise<AnyObject>{
+  return await http({
+    url: `/v1/ledger/${ledgerId}/bill`,
+    method: 'GET',
+    data: query
+  })
+}

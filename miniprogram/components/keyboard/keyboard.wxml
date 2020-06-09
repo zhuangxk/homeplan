@@ -5,7 +5,6 @@
 
   <van-tabs active="{{1}}" type="card" color="var(--cyan)" bind:change="onTabChange">
     <van-tab name="{{1}}" title="支出"></van-tab>
-    <!-- <van-tab name="{{2}}" title="转账"></van-tab> -->
     <van-tab name="{{2}}" title="收入"></van-tab>
 
   </van-tabs>
