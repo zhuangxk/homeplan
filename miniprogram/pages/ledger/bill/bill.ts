@@ -11,11 +11,11 @@ Component({
         total: 0,
         params: {
             "page": 1,
-            "page_size": 20
+            "page_size": -1
         }
     },
     properties: {
-        ledgerId: {
+        ledgerId: { 
             type: Number
         }  
     },
