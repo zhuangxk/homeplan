@@ -29,6 +29,7 @@ Component({
     typeActive: 1,
     formdata: {
       "amount": "",
+      "amount_type": 1,
       "bill_type_id": null,
       "bill_time": new Date().toISOString(),
       "comment": "",
@@ -296,6 +297,7 @@ Component({
         typeActive : e.detail.name,
         formdata: {
           ...this.data.formdata,
+          "amount_type": typeActive,
           "bill_type_id": this.data.types[typeActive][0]['id']
         }
       })

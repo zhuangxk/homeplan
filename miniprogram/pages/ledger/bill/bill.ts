@@ -1,18 +1,19 @@
 const app = getApp() as IAppOption
 import { getBills } from "../../../api/index"
+import { formatMonthDate } from "../../../utils/util"
 Component({
     data: {
         show: false,
         CustomBar: app.globalData.CustomBar,
         bills: [] as AnyArray,
-        dayBills: [] as AnyArray,
+        dateMap: {} as Record<string, AnyObject>,
         loading: false,
-        complete: false,
         total: 0,
         params: {
             "page": 1,
-            "page_size": 20
-        }
+            "page_size": -1
+        },
+        localsNum: ["一","二","三","四","五","六","七","八","九","十","十一","十二"],
     },
     properties: {
         ledgerId: {
@@ -27,11 +28,6 @@ Component({
     observers: {
         ledgerId(): void {
             this.getBills() 
-        },
-        bills(): void {
-            this.setData({
-
-            })
         }
     },
     methods: {
@@ -39,7 +35,7 @@ Component({
             if(!this.data.ledgerId){
                 return
             }
-            if(this.data.loading || this.data.complete){
+            if(this.data.loading){
                 return
             }
             this.data.loading = true
@@ -47,18 +43,30 @@ Component({
                 title: '加载中'
             })
             getBills(this.data.ledgerId, this.data.params).then(res=>{
-                const { bills } = this.data
-                bills.concat(res.list)
-                this.setData({
-                    bills: bills.concat(res.list),
-                    total: res.total
-                })
+                this.handleBillsRes(res)
                 wx.hideLoading()
                 this.data.loading = false
-                if(this.data.bills.length >= this.data.total){
-                    this.data.complete = true
-                }
             })
+        },
+        handleBillsRes(res: AnyObject): void{
+            const list = res.list as AnyArray
+            const dateMap = {} as Record<string, AnyObject>
+            list.forEach( item => {
+                const date = new Date(item.bill_time)
+                const dateKey = formatMonthDate(date) + "  星期" + this.data.localsNum[date.getDay() - 1]
+                dateMap[dateKey] = dateMap[dateKey] || {
+                    list:[],
+                    total: 0,
+                    count: 0
+                }
+                dateMap[dateKey]
+            })
+            this.setData({
+                bills: res.list,
+                total: res.total,
+                dateMap
+            })
+            console.log(this.data.dateMap)
         },
         onAdd(): void{
             this.setData({
@@ -76,13 +84,6 @@ Component({
             this.setData({
                 show: false
             })
-            this.data.params.page=1
-            this.data.bills = []
-            this.getBills()
-        },
-
-        onScrollLower(): void{
-            this.data.params.page++
             this.getBills()
         },
     }
