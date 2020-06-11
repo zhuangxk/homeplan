@@ -1,4 +1,6 @@
-<!--miniprogram/pages/ledger/bill/bill.wxml-->
+
+
+ <!-- 当份统计 -->
 <view class="ledger-bill-top-panel">
   <text style="margin-right:50px">2020年4月</text>
   <text>支出<text class="ledger-bill-top-panel-num">3456</text></text>
@@ -6,28 +8,18 @@
 </view>
 
 
-<view class="ledger-bill-list-date" style="top:{{CustomBar}}px">
- 今天
- 支出 200
- 收入 300
-</view>
-
-<!-- <van-swipe-cell right-width="{{ 130 }}">
-  <van-cell-group>
-   <van-cell title="支出" value="-32.3" size="large" />
-  </van-cell-group>
-    <view slot="right" style="height: 100%">
-    <van-button type="danger" custom-style="height:100%;width:65px">删除</van-button>
-    <van-button color="var(--cyan)" custom-style="height:100%;width:65px">编辑</van-button>
-    </view>
-</van-swipe-cell> -->
-
 <!-- 账单列表 -->
 <scroll-view
-  scroll-y style="width: 100%; height: 350px;"
+  scroll-y style=" height: calc(100vh - {{CustomBar}}px - 100px - 100rpx);"
   >
-  
-    <van-swipe-cell wx:key="index" wx:for="{{bills}}" right-width="{{ 130 }}">
+  <view wx:key="index" wx:for="{{dateMapKeys}}">
+    <view class="ledger-bill-list-date">
+      {{item}}   
+      支出 {{dateMap[item]['sum_out']}}
+      收入 {{dateMap[item]['sum_in']}}
+    </view>
+
+    <van-swipe-cell wx:key="index" wx:for="{{dateMap[item]['list']}}" right-width="{{ 130 }}">
       <van-cell-group>
         <van-cell value="{{item.BillType.type==1?'-':'+'}}{{item.amount}}" size="large" label="{{item.comment}}" >
           <view slot="title">
@@ -43,7 +35,10 @@
           <van-button color="var(--cyan)" custom-style="height:100%;width:65px">编辑</van-button>
       </view>
     </van-swipe-cell>  
-  </scroll-view>
+   </view>
+   <van-divider wx:if="{{dateMapKeys.length>0}}" customStyle="border-color: #999; font-size: 12px;"
+    dashed  hairline contentPosition="center">到底啦</van-divider>
+</scroll-view>
 
 
 <van-popup

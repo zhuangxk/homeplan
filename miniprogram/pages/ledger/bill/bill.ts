@@ -7,6 +7,8 @@ Component({
         CustomBar: app.globalData.CustomBar,
         bills: [] as AnyArray,
         dateMap: {} as Record<string, AnyObject>,
+        monthMap: {} as Record<string, AnyObject>,
+        dateMapKeys: [] as Array<string>,
         loading: false,
         total: 0,
         params: {
@@ -50,23 +52,43 @@ Component({
         },
         handleBillsRes(res: AnyObject): void{
             const list = res.list as AnyArray
+            const date_count = res.date_count as AnyArray
+            const month_count = res.month_count as AnyArray
             const dateMap = {} as Record<string, AnyObject>
-            list.forEach( item => {
-                const date = new Date(item.bill_time)
-                const dateKey = formatMonthDate(date) + "  星期" + this.data.localsNum[date.getDay() - 1]
-                dateMap[dateKey] = dateMap[dateKey] || {
+            date_count.forEach(item=>{
+                dateMap[this.getDateKey(item.date)] = {
                     list:[],
-                    total: 0,
-                    count: 0
+                    total: item.total,
+                    sum_in: item.sum_in,
+                    sum_out: item.sum_out,
                 }
-                dateMap[dateKey]
+            })
+            
+            list.forEach( item => {
+                const date = dateMap[this.getDateKey(item.bill_time)]
+                if(date.list){
+                    date.list.push(item)
+                } else {
+                    wx.showToast({
+                        title: "计数出错"
+                    })
+                }
             })
             this.setData({
-                bills: res.list,
                 total: res.total,
-                dateMap
+                dateMap,
+                dateMapKeys: Object.keys(dateMap),
+                monthMap: month_count[0],
             })
-            console.log(this.data.dateMap)
+       
+        },
+        getDateKey(iosdate:string): string{
+            const date = new Date(iosdate)
+            let dateKey = formatMonthDate(date) + "  星期" + this.data.localsNum[date.getDay() - 1]
+            if(formatMonthDate(date) == formatMonthDate(new Date())){
+                dateKey = "今日  星期" + this.data.localsNum[new Date().getDay() - 1]
+            }
+            return dateKey
         },
         onAdd(): void{
             this.setData({

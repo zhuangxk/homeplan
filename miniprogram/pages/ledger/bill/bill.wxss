@@ -28,6 +28,7 @@
     bottom: 100px;
     text-align: center;
     box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.2);
+    z-index: 2;
 }
 .ledger-bill-del-btn{
     border: none;
@@ -40,6 +41,7 @@
     font-size: 14px;
     position: sticky;
     background-color: var(--ghostWhite);
+    top: 0;
     z-index: 1;
 }
 
