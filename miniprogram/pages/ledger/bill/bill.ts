@@ -33,6 +33,24 @@ Component({
         }
     },
     methods: {
+        onClick(): void{
+            wx.navigateTo({
+                url: '/pages/ledger/bill_detail/bill_detail',
+                events: {
+                    // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+                    acceptDataFromOpenedPage: function(data: any): void {
+                      console.log(data)
+                    },
+                    someEvent: function(data: any): void {
+                      console.log(data)
+                    }
+                  },
+                  success: function(res) {
+                    // 通过eventChannel向被打开页面传送数据
+                    res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
+                  }
+            })
+        },
         getBills(): void{
             if(!this.data.ledgerId){
                 return
@@ -52,15 +70,15 @@ Component({
         },
         handleBillsRes(res: AnyObject): void{
             const list = res.list as AnyArray
-            const date_count = res.date_count as AnyArray
-            const month_count = res.month_count as AnyArray
+            const dateCount = res.date_count as AnyArray
+            const monthCount = res.month_count as AnyArray
             const dateMap = {} as Record<string, AnyObject>
-            date_count.forEach(item=>{
+            dateCount.forEach(item=>{
                 dateMap[this.getDateKey(item.date)] = {
                     list:[],
                     total: item.total,
-                    sum_in: item.sum_in,
-                    sum_out: item.sum_out,
+                    sumIn: item.sum_in,
+                    sumOut: item.sum_out,
                 }
             })
             
@@ -78,11 +96,11 @@ Component({
                 total: res.total,
                 dateMap,
                 dateMapKeys: Object.keys(dateMap),
-                monthMap: month_count[0],
+                monthMap: monthCount[0],
             })
        
         },
-        getDateKey(iosdate:string): string{
+        getDateKey(iosdate: string): string{
             const date = new Date(iosdate)
             let dateKey = formatMonthDate(date) + "  星期" + this.data.localsNum[date.getDay() - 1]
             if(formatMonthDate(date) == formatMonthDate(new Date())){

@@ -1,0 +1,26 @@
+.jagged {
+    position: relative;
+    height: 100rpx;
+}
+.jagged:after {
+    content: '';
+    display: block;
+    height: 2em;
+    position: absolute;
+    bottom: -1em;
+    left: 0;
+    right: 0;
+    background-image: radial-gradient(circle, transparent 70%, #ededed 70%);
+    background-size: 1.4em 2em;
+    background-position: 0 -1em;
+
+}
+
+.bill-detail-btn-bar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* height: 100rpx; */
+    background-color: #fff;
+}

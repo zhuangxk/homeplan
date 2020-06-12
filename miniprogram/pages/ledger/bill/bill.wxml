@@ -2,9 +2,10 @@
 
  <!-- 当份统计 -->
 <view class="ledger-bill-top-panel">
-  <text style="margin-right:50px">2020年4月</text>
-  <text>支出<text class="ledger-bill-top-panel-num">3456</text></text>
-  <text style="margin-left:20px">收入<text class="ledger-bill-top-panel-num">7050</text></text>
+  <text style="margin-right:20px">2020年4月</text>
+
+  <text>支出<text class="ledger-bill-top-panel-num">{{monthMap["sum_out"]}}</text></text>
+  <text style="margin-left:20px">收入<text class="ledger-bill-top-panel-num">{{monthMap["sum_in"]}}</text></text>
 </view>
 
 
@@ -12,32 +13,33 @@
 <scroll-view
   scroll-y style=" height: calc(100vh - {{CustomBar}}px - 100px - 100rpx);"
   >
-  <view wx:key="index" wx:for="{{dateMapKeys}}">
+<view wx:key="index" wx:for="{{dateMapKeys}}">
     <view class="ledger-bill-list-date">
       {{item}}   
-      支出 {{dateMap[item]['sum_out']}}
-      收入 {{dateMap[item]['sum_in']}}
+      支出 {{dateMap[item]['sumOut']}}
+      收入 {{dateMap[item]['sumIn']}}
     </view>
-
-    <van-swipe-cell wx:key="index" wx:for="{{dateMap[item]['list']}}" right-width="{{ 130 }}">
-      <van-cell-group>
-        <van-cell value="{{item.BillType.type==1?'-':'+'}}{{item.amount}}" size="large" label="{{item.comment}}" >
-          <view slot="title">
-            <text>{{item.BillType.name}}  </text>
-            <van-tag wx:if="{{!!item.Pic1}}" plain type="success">图片</van-tag>
-          </view>
-        </van-cell>
-      </van-cell-group>
-      <view slot="right" style="height: 100%">
-          <van-button type="danger" custom-style="height:100%;width:65px">
-              删除
-          </van-button>
-          <van-button color="var(--cyan)" custom-style="height:100%;width:65px">编辑</van-button>
-      </view>
-    </van-swipe-cell>  
-   </view>
-   <van-divider wx:if="{{dateMapKeys.length>0}}" customStyle="border-color: #999; font-size: 12px;"
-    dashed  hairline contentPosition="center">到底啦</van-divider>
+    <van-cell-group>
+      <van-cell 
+      clickable
+      center 
+      bind:click="onClick"
+      value="{{item.BillType.type==1?'-':'+'}}{{item.amount}}" 
+      size="large" label="{{item.comment}}"
+      wx:key="index" wx:for="{{dateMap[item]['list']}}"
+      >
+        <view slot="title">
+          <text>{{item.BillType.name}}  </text>
+          <van-tag wx:if="{{!!item.Pic1}}" plain type="success">图片</van-tag>
+        </view>
+      </van-cell>  
+    </van-cell-group>
+</view>
+   <van-divider 
+    wx:if="{{dateMapKeys.length>0}}" customStyle="border-color: #999; font-size: 12px;"
+    dashed  hairline contentPosition="center">
+    到底啦
+   </van-divider>
 </scroll-view>
 
 

@@ -1,0 +1,53 @@
+  <cu-custom isBack bgColor="bg-cyan">
+    <text slot="backText">返回</text>
+    <text slot="content">账单详情</text>
+  </cu-custom>
+   
+<view class="bill-detail-btn-bar shadow flex justify-around padding-sm">
+   <van-button round icon="add-o" size="small" type="default">新增明细</van-button>
+   <van-button round icon="records" size="small" type="default">编辑明细</van-button>
+   <van-button round icon="edit" size="small" type="default">编辑账单</van-button> 
+   <van-button round icon="delete" size="small" type="default">删除账单</van-button>
+</view>
+
+<view class="cu-card case">
+  <view class=" cu-item shadow">
+     <view class="padding-sm">
+        <view>
+            类别： 超市购物
+        </view>
+        <view>
+            图片： 超市购物
+        </view>
+        <view>
+            备注： 超市购物
+        </view>    
+        <view>
+            日期： 2020年6月12日 12点
+        </view>
+        <van-divider contentPosition="center">明细</van-divider>
+        <view class="padding-xs flex align-center text-cyan ">
+            <text class="padding-right-sm flex-sub">商品 </text>
+            <text class="flex-sub">数量 </text>
+            <text class="flex-sub">金额 </text>
+        </view>
+        <view class="padding-xs dashed-bottom flex align-center ">
+            <text class="padding-right-sm flex-sub">土豆土豆土豆土豆土豆 </text>
+            <text class="flex-sub"> 2 </text>
+            <text class="flex-sub"> ￥123 </text>
+        </view>
+        <view class="padding-xs dashed-bottom flex align-center ">
+            <text class="padding-right-sm flex-sub">商品 </text>
+            <text class="flex-sub">1 </text>
+            <text class="flex-sub">￥12 </text>
+        </view>
+
+     </view>
+
+    <view class="jagged"></view>
+        
+  </view>
+
+</view>
+
+
