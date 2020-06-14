@@ -32,6 +32,7 @@
         clickable
         center 
         bind:click="onClick"
+        data-item="{{bill}}"
         title-width="500rpx"
         value="{{bill.BillType.type==1?'-':'+'}}{{bill.amount}}"
         use-label-slot

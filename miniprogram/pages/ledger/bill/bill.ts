@@ -40,7 +40,8 @@ Component({
         }
     },
     methods: {
-        onClick(): void{
+        onClick(e): void{
+            const bill =  e.currentTarget.dataset.item
             wx.navigateTo({
                 url: '/pages/ledger/bill_detail/bill_detail',
                 events: {
@@ -54,7 +55,7 @@ Component({
                   },
                   success: function(res) {
                     // 通过eventChannel向被打开页面传送数据
-                    res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
+                    res.eventChannel.emit('acceptDataFromOpenerPage', { bill: bill })
                   }
             })
         },

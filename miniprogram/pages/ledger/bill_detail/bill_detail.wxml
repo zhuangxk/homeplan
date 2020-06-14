@@ -9,23 +9,55 @@
    <van-button round icon="edit" size="small" type="default">编辑账单</van-button> 
    <van-button round icon="delete" size="small" type="default">删除账单</van-button>
 </view>
-
+<wxs module="format">
+  var fix2 = function (num){
+    return (+num).toFixed(2)
+  }
+  module.exports = {
+    fix2: fix2
+  }
+</wxs>
 <view class="cu-card case">
   <view class=" cu-item shadow">
-     <view class="padding-sm">
-        <view>
-            类别： 超市购物
+     <view class="padding-lg">
+        <view class="flex justify-between align-end ">
+          <view>
+            <view slot="icon" class="cu-avatar round sm" style="background-image:url({{bill.User.avatarUrl}});"></view>
+            <text > {{bill.User.nickname}} </text>
+          </view>
+          <view bind:tap="onPreviewImage" wx:if="{{fileList.length>0}}" >
+            <van-icon name="photo-o" info="{{fileList.length}}"></van-icon>
+          </view>
         </view>
-        <view>
-            图片： 超市购物
+     
+
+        <van-divider ></van-divider>
+        <view class="text-xxl text-center">
+           <text class="cuIcon-{{bill.BillType.icon}} text-cyan"></text>
+           <text class="text-lg">{{bill.BillType.name}}</text>
+            
+            <view class="text-sl text-content">
+              {{bill.amount_type==1?'-':'+'}}
+              {{format.fix2(bill.amount)}}</view>
         </view>
-        <view>
-            备注： 超市购物
+        <!-- <view>
+            图片： 预览
+        </view> -->
+        <view class="flex  text-content">
+          <text style="width:150rpx;color: #999">账户</text>
+          <text>{{bill.Account.name}}</text>
+        </view>
+        <view class="flex  text-content" wx:if="{{bill.comment!=''}}">
+          <text style="width:150rpx;color: #999">备注</text>
+          <text>{{bill.comment}}</text>
         </view>    
-        <view>
-            日期： 2020年6月12日 12点
+        <view class="flex  text-content">
+          <text style="width:150rpx;color: #999">时间</text>
+          <text>{{billTime}}</text>
         </view>
-        <van-divider contentPosition="center">明细</van-divider>
+    
+
+        <van-divider ></van-divider>
         <view class="padding-xs flex align-center text-cyan ">
             <text class="padding-right-sm flex-twice">商品 </text>
             <text class="flex-sub">数量 </text>
