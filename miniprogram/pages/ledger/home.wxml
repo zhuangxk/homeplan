@@ -23,4 +23,6 @@
   </van-tabbar>
 </view>
 
+<van-dialog confirm-button-color="var(--cyan)" id="van-dialog" />
+
 

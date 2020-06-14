@@ -7,7 +7,7 @@
     <van-tab name="{{1}}" title="支出"></van-tab>
     <van-tab name="{{2}}" title="收入"></van-tab>
 
-  </van-tabs>
+  </van-tabs> 
 </view>
 
 <!-- 金额显示 -->

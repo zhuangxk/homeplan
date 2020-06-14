@@ -87,3 +87,20 @@ export async function getBills(ledgerId: number, query: AnyObject): Promise<AnyO
     data: query
   })
 }
+
+// 账单删除
+export async function delBill(billId: number): Promise<AnyObject>{
+  return await http({
+    url: `/v1/bill/${billId}`,
+    method: 'DELETE',
+  })
+}
+
+// 更新账单
+export async function updateBill(billId: number, data: AnyObject): Promise<AnyObject>{
+  return await http({
+    url: `/v1/bill/${billId}`,
+    method: 'PUT',
+    data
+  })
+} 

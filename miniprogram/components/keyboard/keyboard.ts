@@ -1,4 +1,4 @@
-import { getAccounts, getBillTypes, getOssToken, createBill } from '../../api/index'
+import { getAccounts, getBillTypes, getOssToken, createBill, updateBill } from '../../api/index'
 import { formatMonthDate } from '../../utils/util'
 
 Component({
@@ -6,26 +6,45 @@ Component({
     styleIsolation: 'shared'
   },
   lifetimes: {
-    ready(): void{
-      this.getTypes()  
-      this.getAccounts()
-    }
+    // ready(): void{
+    //   this.getTypes()  
+    //   this.getAccounts()
+    // }
   },
   properties: {
-      ledgerId: Number
+      ledgerId: Number,
+      actionType: {
+        type: String,
+        value: 'add'
+      },
+      bill: {
+        type: Object,
+        value: {}
+      }
   },
   observers: {
-    ledgerId(): void {
-      this.getTypes()  
-      this.getAccounts()
+    ledgerId(ledgerId): void {
+      if(ledgerId){
+        this.getTypes()  
+        this.getAccounts()
+      }
+    },
+    actionType(type): void {
+      if(!this.data.typeLoaded || !this.data.accountLoaded){
+        return
+      }
+      this.reset(type)
     }
   },
   data: {
+    downloadHost: 'https://oss.toko.wang/',
     types: {
       1: [] as AnyArray,
       2: [] as AnyArray,
     } as Record<number, AnyArray>,
     accounts:[] as AnyArray,
+    typeLoaded: false,
+    accountLoaded: false,
     typeActive: 1,
     formdata: {
       "amount": "",
@@ -46,7 +65,6 @@ Component({
     accountPopupShow: false,
     datePopupShow: false,
     typing: false,
-    MainCur: 0,
     fileList: [] as AnyArray
   },
   methods: {
@@ -62,9 +80,10 @@ Component({
       })
       this.setData({
         types,
+        typeLoaded: true,
         formdata:{
           ...this.data.formdata,
-          "bill_type_id": types[1][0]['id']
+          "bill_type_id": types[1][0]['id'],
         }
       })
     },
@@ -74,7 +93,8 @@ Component({
       }
       const accounts = await getAccounts(this.properties.ledgerId)
       this.setData({
-        accounts
+        accounts,
+        accountLoaded: true,
       })
       this.setAccount(accounts[0].id)
     },
@@ -127,19 +147,36 @@ Component({
       }
       const pic = {} as AnyObject
       const {fileList} = this.data
-      fileList[0] && (pic["pic_id1"] = fileList[0]['id'])
-      fileList[1] && (pic["pic_id2"] = fileList[1]['id'])
-      createBill(this.data.ledgerId,{
-        ...this.data.formdata,
-        ...pic
-      }).then(_=>{
-        wx.showToast({
-          title: "保存成功",
-          icon: 'success',
-          duration: 2000  
-        })
-        this.triggerEvent("success")
-      })
+      fileList[0] ? (pic["pic_id1"] = fileList[0]['id']) : (pic["pic_id1"] = -1)
+      fileList[1] ? (pic["pic_id2"] = fileList[1]['id']) : (pic["pic_id2"] = -1)
+      if(this.data.actionType == 'add'){
+        createBill(this.data.ledgerId,{
+          ...this.data.formdata,
+          ...pic
+        }).then(_=>{
+          wx.showToast({
+            title: "添加成功",
+            icon: 'success',
+            duration: 2000  
+          })
+          this.triggerEvent("success")
+        })        
+      }
+
+      if(this.data.actionType == 'edit'){
+        updateBill(this.data.bill.id,{
+          ...this.data.formdata,
+          ...pic
+        }).then(_=>{
+          wx.showToast({
+            title: "修改成功",
+            icon: 'success',
+            duration: 2000  
+          })
+          this.triggerEvent("success")
+        })        
+      }
+
     },
     account(): void{
       this.setData({
@@ -319,6 +356,52 @@ Component({
         accountName: name,
         accountPopupShow: false,
       })
+    },
+    reset(type: string) :void{
+      if(type=='add'){
+        const now = new Date()
+        this.setData({
+          typeActive: 1,
+          formdata: {
+            "amount": "",
+            "amount_type": 1,
+            "bill_type_id": this.data.types[1][0]['id'],
+            "bill_time": now.toISOString(),
+            "comment": "",
+            "account_id": this.data.accounts[0].id,
+          },
+          minDate: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
+          maxDate: now.getTime(),
+          now: now.getTime(),
+          billTime: '今日',
+          accountName: this.data.accounts[0].name,
+          fileList: []
+        })
+      }
+      if(type=='edit'){
+        const now = new Date()
+        const { bill, downloadHost } = this.data
+        const fileList = []
+        bill.Pic1 && fileList.push({url: downloadHost + bill.Pic1.file_name, id:bill.Pic1.id })
+        bill.Pic2 && fileList.push({url: downloadHost + bill.Pic2.file_name, id:bill.Pic2.id })
+        this.setData({
+          typeActive: bill.amount_type,
+          formdata: {
+            "amount": bill.amount,
+            "amount_type": bill.amount_type,
+            "bill_type_id": bill.bill_type_id,
+            "bill_time": bill.bill_time,
+            "comment": bill.comment,
+            "account_id": bill.account_id,
+          },
+          minDate: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 30).getTime(),
+          maxDate: now.getTime(),
+          now: now.getTime(),
+          billTime: formatMonthDate(new Date(bill.bill_time)),
+          accountName: this.data.accounts.find(i=>i.id==bill.account_id)["name"],
+          fileList: fileList
+        })
+      }
     }
   }
 })

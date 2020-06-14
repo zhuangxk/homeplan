@@ -1,4 +1,5 @@
 /* miniprogram/pages/ledger/bill/bill.wxss */
+@import "/colorui/main.wxss";
 .ledger-bill-add-btn{
     position: fixed;
     z-index: 1;
@@ -52,6 +53,33 @@
     bottom: 0;
 }
 
-.ledger-bill-list-item{
-    background: red;
+
+.sideslip-oprate {
+    height: 100rpx;
+    width: 250rpx;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+  
+.sideslip-oprate view {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    flex-shrink: 0;
+    height: 100%;
+}
+.sideslip-blue {
+    background-color: var(--cyan);
+    color: #fff;
+}
+
+.sideslip-red {
+    background-color: red;
+    color: #fff;
 }

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "keyboard": "/components/keyboard/keyboard"
+    "keyboard": "/components/keyboard/keyboard",
+    "slide-slip": "/components/slide-slip/slide-slip"
   }
 }

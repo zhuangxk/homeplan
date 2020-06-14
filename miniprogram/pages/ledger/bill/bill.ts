@@ -1,9 +1,12 @@
 const app = getApp() as IAppOption
-import { getBills } from "../../../api/index"
+import { getBills, delBill } from "../../../api/index"
 import { formatMonthDate } from "../../../utils/util"
+import Dialog from "@vant/weapp/dialog/dialog"
+// const Dialog = require('@vant/weapp/dialog/dialog')
+
 Component({
     data: {
-        show: false,
+        keyboardShow: false,
         CustomBar: app.globalData.CustomBar,
         bills: [] as AnyArray,
         dateMap: {} as Record<string, AnyObject>,
@@ -11,11 +14,15 @@ Component({
         dateMapKeys: [] as Array<string>,
         loading: false,
         total: 0,
+        slideReset: true,
         params: {
             "page": 1,
             "page_size": -1
         },
-        localsNum: ["一","二","三","四","五","六","七","八","九","十","十一","十二"],
+        localDay: ["日", "一","二","三","四","五","六"],
+        actionType: 'add',
+        curEditItem: {},
+        lastTouchId: 0,
     },
     properties: {
         ledgerId: { 
@@ -23,9 +30,9 @@ Component({
         }  
     },
     lifetimes: {
-        ready(): void{
-          this.getBills()  
-        }
+        // ready(): void{
+        //   this.getBills()
+        // }
     },
     observers: {
         ledgerId(): void {
@@ -102,30 +109,78 @@ Component({
         },
         getDateKey(iosdate: string): string{
             const date = new Date(iosdate)
-            let dateKey = formatMonthDate(date) + "  星期" + this.data.localsNum[date.getDay() - 1]
+            let dateKey = formatMonthDate(date) + "  星期" + this.data.localDay[date.getDay()]
             if(formatMonthDate(date) == formatMonthDate(new Date())){
-                dateKey = "今日  星期" + this.data.localsNum[new Date().getDay() - 1]
+                dateKey = "今日  星期" + this.data.localDay[new Date().getDay()]
             }
             return dateKey
         },
         onAdd(): void{
             this.setData({
-                show: true
+                curEditItem: {},
+                actionType: 'add',
+                keyboardShow: true
             })
         },
   
         onClose(): void{
             this.setData({
-                show: false
+                keyboardShow: false
             })
         },
 
         onSave(): void{
             this.setData({
-                show: false
+                keyboardShow: false,
+                slideReset: true,
             })
             this.getBills()
         },
+
+        onClickDelete(e): void{
+            const self = this
+            const id = e.currentTarget.dataset.id
+            Dialog({
+                showCancelButton: true,
+                title: '提示',
+                message: '确定要删除吗？',
+                asyncClose: true
+              })
+            .then(() => {
+                if(Dialog.confirm)
+                    delBill(id).then(_=>{
+                        if(Dialog.close)
+                        Dialog.close()
+                        self.getBills()
+                    })
+                }
+            )
+            .catch(() => {
+                if(Dialog.close)
+                Dialog.close()
+            });
+        },
+
+        onClickEdit(e): void{
+            this.setData({
+                curEditItem: e.currentTarget.dataset.item,
+                actionType: 'edit',
+                keyboardShow: true
+            })
+        },
+
+        onTouchstart(e){
+            const id = e.currentTarget.dataset.id
+            if(id == this.data.lastTouchId){
+                return
+            }
+            this.setData({
+                lastTouchId: id,
+                slideReset: true,
+            })
+        }
+
+
     }
 
 })

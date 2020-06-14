@@ -1,6 +1,6 @@
 // const BaseUrl = 'http://172.17.13.187:5000'
 // const BaseUrl = 'http://localhost:5000'
-const BaseUrl = 'http://172.16.151.161:5000'
+const BaseUrl = 'https://wxapi.toko.wang'
 import Base64 from '../utils/base64'
 import { login } from './index'
 

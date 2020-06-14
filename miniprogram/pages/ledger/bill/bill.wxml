@@ -19,21 +19,42 @@
       支出 {{dateMap[item]['sumOut']}}
       收入 {{dateMap[item]['sumIn']}}
     </view>
-    <van-cell-group>
-      <van-cell 
-      clickable
-      center 
-      bind:click="onClick"
-      value="{{item.BillType.type==1?'-':'+'}}{{item.amount}}" 
-      size="large" label="{{item.comment}}"
-      wx:key="index" wx:for="{{dateMap[item]['list']}}"
-      >
-        <view slot="title">
-          <text>{{item.BillType.name}}  </text>
-          <van-tag wx:if="{{!!item.Pic1}}" plain type="success">图片</van-tag>
-        </view>
-      </van-cell>  
-    </van-cell-group>
+    <!-- <ct-item  wx:key="index" wx:for="{{dateMap[item]['list']}}" item="item">
+  </ct-item> -->
+  <slide-slip 
+  reset="{{slideReset}}" height="100"
+  bind:touchstart="onTouchstart"
+  data-id="{{bill.id}}"
+  wx:key="id" wx:for-item="bill" 
+  wx:for="{{dateMap[item]['list']}}">
+      <van-cell-group slot="left">
+        <van-cell
+        clickable
+        center 
+        bind:click="onClick"
+        title-width="500rpx"
+        value="{{bill.BillType.type==1?'-':'+'}}{{bill.amount}}"
+        use-label-slot
+        size="large"
+        customStyle="height:100rpx"
+        >
+          <view slot="icon" class="cu-avatar round sm" style="background-image:url({{bill.User.avatarUrl}});"></view>
+          <view slot="title" style="padding-left:10px">
+            <text>{{bill.BillType.name}}  </text>
+            <van-tag wx:if="{{!!bill.Pic1}}" plain type="success">图片</van-tag>
+          </view>
+          
+           <view slot="label" style="padding-left:10px" class="text-cut">
+            {{bill.comment}}
+          </view>
+        </van-cell>
+      </van-cell-group>
+  <view slot="right" class="sideslip-oprate">
+    <view class='sideslip-red' data-id="{{bill.id}}" bindtap="onClickDelete">删除</view>
+    <view class='sideslip-blue' data-item="{{bill}}" bindtap="onClickEdit">编辑</view>
+  </view>
+  </slide-slip>
+
 </view>
    <van-divider 
     wx:if="{{dateMapKeys.length>0}}" customStyle="border-color: #999; font-size: 12px;"
@@ -44,18 +65,20 @@
 
 
 <van-popup
-  show="{{ show }}"
+  show="{{ keyboardShow }}"
   round
   position="bottom"
   custom-style="height: 1000rpx"
   bind:close="onClose"
 >
 
-  <keyboard ledgerId="{{ledgerId}}" bind:success="onSave" class="j-bill-form-keyboard" />
+  <keyboard 
+  ledgerId="{{ledgerId}}"
+  actionType="{{actionType}}"
+  bill="{{curEditItem}}"
+  bind:success="onSave" class="j-bill-form-keyboard" />
 
 </van-popup>
-
-
 
 
 <view class="ledger-bill-top-plus">

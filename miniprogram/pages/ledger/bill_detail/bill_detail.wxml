@@ -27,17 +27,17 @@
         </view>
         <van-divider contentPosition="center">明细</van-divider>
         <view class="padding-xs flex align-center text-cyan ">
-            <text class="padding-right-sm flex-sub">商品 </text>
+            <text class="padding-right-sm flex-twice">商品 </text>
             <text class="flex-sub">数量 </text>
             <text class="flex-sub">金额 </text>
         </view>
         <view class="padding-xs dashed-bottom flex align-center ">
-            <text class="padding-right-sm flex-sub">土豆土豆土豆土豆土豆 </text>
+            <text class="padding-right-sm flex-twice">土豆土豆土豆土豆土豆 </text>
             <text class="flex-sub"> 2 </text>
             <text class="flex-sub"> ￥123 </text>
         </view>
         <view class="padding-xs dashed-bottom flex align-center ">
-            <text class="padding-right-sm flex-sub">商品 </text>
+            <text class="padding-right-sm flex-twice">商品 </text>
             <text class="flex-sub">1 </text>
             <text class="flex-sub">￥12 </text>
         </view>
