@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/ledger/bill_detail/bill_detail",
     "pages/ledger/home",
+    "pages/ledger/bill_detail/bill_detail",
     "pages/index/index",
     "pages/login/login",
     "pages/about/home/home",

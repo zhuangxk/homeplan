@@ -42,7 +42,7 @@
           <view slot="icon" class="cu-avatar round sm" style="background-image:url({{bill.User.avatarUrl}});"></view>
           <view slot="title" style="padding-left:10px">
             <text>{{bill.BillType.name}}  </text>
-            <van-tag wx:if="{{!!bill.Pic1}}" plain type="success">图片</van-tag>
+            <van-tag wx:if="{{!!bill.Pic1}}" color="var(--cyan)"  mark type="success">图片</van-tag>
           </view>
           
            <view slot="label" style="padding-left:10px" class="text-cut">

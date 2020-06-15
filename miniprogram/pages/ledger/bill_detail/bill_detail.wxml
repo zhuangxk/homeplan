@@ -4,7 +4,7 @@
   </cu-custom>
    
 <view class="bill-detail-btn-bar flex justify-around padding-sm">
-   <van-button color="var(--cyan)" custom-class="shadow bg-gray" bind:tap="onAdd" round icon="plus" type="default">添加明细</van-button>
+   <van-button wx:if="{{bill.amount_type == 1}}" color="var(--cyan)" custom-class="shadow bg-gray" bind:tap="onAdd" round icon="plus" type="default">添加明细</van-button>
 </view>
 <wxs module="format">
   var fix2 = function (num){
@@ -17,12 +17,12 @@
 <view class="cu-card case margin-sm" style="margin-bottom: 200rpx">
   <view class=" cu-item shadow">
      <view class="padding-xl">
-        <view class="flex justify-between align-end ">
+        <view class="flex justify-between align-center ">
           <view>
             <view slot="icon" class="cu-avatar round sm" style="background-image:url({{bill.User.avatarUrl}});"></view>
             <text > {{bill.User.nickname}} </text>
           </view>
-          <view bind:tap="onPreviewImage" wx:if="{{fileList.length>0}}" >
+          <view class="text-xxl" bind:tap="onPreviewImage" wx:if="{{fileList.length>0}}" >
             <van-icon name="photo-o" info="{{fileList.length}}"></van-icon>
           </view>
         </view>
@@ -34,41 +34,39 @@
            <text class="text-lg">{{bill.BillType.name}}</text>
             
             <view class="text-sl text-content">
-              {{bill.amount_type==1?'-':'+'}}
-              {{format.fix2(bill.amount)}}</view>
+              {{bill.amount_type==1?'-':'+'}}{{format.fix2(bill.amount)}}</view>
         </view>
         <!-- <view>
             图片： 预览
         </view> -->
         <view class="flex  text-content">
-          <text style="width:150rpx;color: #999">账户</text>
-          <text>{{bill.Account.name}}</text>
+          <text style="flex:1;color: #999">账户</text>
+          <text style="flex:3">{{bill.Account.name}}</text>
         </view>
- 
-
-
         <view class="flex  text-content" wx:if="{{bill.comment!=''}}">
-          <text style="width:150rpx;color: #999">备注</text>
-          <text>{{bill.comment}}</text>
+          <text style="flex:1;color: #999">备注</text>
+          <text style="flex:3">{{bill.comment}}</text>
         </view>   
-
         <view class="flex  text-content">
-          <text style="width:150rpx;color: #999">记录时间</text>
-          <text>{{billTime}}</text>
+          <text style="flex:1;color: #999">记录时间</text>
+          <text style="flex:3">{{billTime}}</text>
         </view>
     
 
-        <van-divider ></van-divider>
-        <view class="text-content">
+        <van-divider wx:if="{{list.length > 0 }}"></van-divider>
+        <view class="text-content" wx:if="{{list.length > 0 }}">
           <view class="padding-xs flex align-center text-cyan ">
               <text class="padding-right-sm flex-twice">商品 </text>
               <text class="flex-sub text-center"> 数量 </text>
-              <text class="flex-sub text-right"> 金额 </text>
+              <text class="flex-twice text-right"> 金额 </text>
           </view>
-          <view wx:for="{{list}}" wx:key="id" bind:longpress="edit" class="padding-xs dashed-bottom flex align-center" hover-class="bg-gray">
+          <view wx:for="{{list}}" wx:key="id" data-item="{{item}}" bind:longpress="edit" class="padding-xs dashed-bottom flex align-center" hover-class="bg-gray">
               <text class="padding-right-sm flex-twice">{{item.name}} </text>
               <text class="flex-sub text-center">{{item.amount}} </text>
-              <text class="flex-sub text-right">{{item.money}} </text>
+              <text class="flex-twice text-right">{{item.money}} </text>
+          </view>
+          <view class="text-right padding-xs" >
+            小计：￥ {{sum}}
           </view>
         </view>
 
@@ -113,7 +111,7 @@
   </view>
 
 <view class="padding-xl flex justify-around align-center">
-  <van-button wx:if="{{saveType=='edit'}}" custom-style="padding: 20rpx 50rpx"	icon="delete" block color="var(--gray)">删除</van-button>
+  <van-button bind:tap="onDel" wx:if="{{saveType=='edit'}}" custom-style="padding: 20rpx 50rpx"	icon="delete" block color="var(--gray)">删除</van-button>
   <van-button bind:tap="onSave" custom-style="padding: 20rpx 50rpx" icon="edit" block color="var(--cyan)">保存</van-button>
 </view>
 </van-action-sheet>
