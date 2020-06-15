@@ -3,11 +3,8 @@
     <text slot="content">账单详情</text>
   </cu-custom>
    
-<view class="bill-detail-btn-bar shadow flex justify-around padding-sm">
-   <van-button round icon="add-o" size="small" type="default">新增明细</van-button>
-   <van-button round icon="records" size="small" type="default">编辑明细</van-button>
-   <van-button round icon="edit" size="small" type="default">编辑账单</van-button> 
-   <van-button round icon="delete" size="small" type="default">删除账单</van-button>
+<view class="bill-detail-btn-bar flex justify-around padding-sm">
+   <van-button color="var(--cyan)" custom-class="shadow bg-gray" bind:tap="onAdd" round icon="plus" type="default">添加明细</van-button>
 </view>
 <wxs module="format">
   var fix2 = function (num){
@@ -17,9 +14,9 @@
     fix2: fix2
   }
 </wxs>
-<view class="cu-card case">
+<view class="cu-card case margin-sm" style="margin-bottom: 200rpx">
   <view class=" cu-item shadow">
-     <view class="padding-lg">
+     <view class="padding-xl">
         <view class="flex justify-between align-end ">
           <view>
             <view slot="icon" class="cu-avatar round sm" style="background-image:url({{bill.User.avatarUrl}});"></view>
@@ -47,39 +44,77 @@
           <text style="width:150rpx;color: #999">账户</text>
           <text>{{bill.Account.name}}</text>
         </view>
+ 
+
+
         <view class="flex  text-content" wx:if="{{bill.comment!=''}}">
           <text style="width:150rpx;color: #999">备注</text>
           <text>{{bill.comment}}</text>
-        </view>    
+        </view>   
+
         <view class="flex  text-content">
-          <text style="width:150rpx;color: #999">时间</text>
+          <text style="width:150rpx;color: #999">记录时间</text>
           <text>{{billTime}}</text>
         </view>
     
 
         <van-divider ></van-divider>
-        <view class="padding-xs flex align-center text-cyan ">
-            <text class="padding-right-sm flex-twice">商品 </text>
-            <text class="flex-sub">数量 </text>
-            <text class="flex-sub">金额 </text>
-        </view>
-        <view class="padding-xs dashed-bottom flex align-center ">
-            <text class="padding-right-sm flex-twice">土豆土豆土豆土豆土豆 </text>
-            <text class="flex-sub"> 2 </text>
-            <text class="flex-sub"> ￥123 </text>
-        </view>
-        <view class="padding-xs dashed-bottom flex align-center ">
-            <text class="padding-right-sm flex-twice">商品 </text>
-            <text class="flex-sub">1 </text>
-            <text class="flex-sub">￥12 </text>
+        <view class="text-content">
+          <view class="padding-xs flex align-center text-cyan ">
+              <text class="padding-right-sm flex-twice">商品 </text>
+              <text class="flex-sub text-center"> 数量 </text>
+              <text class="flex-sub text-right"> 金额 </text>
+          </view>
+          <view wx:for="{{list}}" wx:key="id" bind:longpress="edit" class="padding-xs dashed-bottom flex align-center" hover-class="bg-gray">
+              <text class="padding-right-sm flex-twice">{{item.name}} </text>
+              <text class="flex-sub text-center">{{item.amount}} </text>
+              <text class="flex-sub text-right">{{item.money}} </text>
+          </view>
         </view>
 
      </view>
-
-    <view class="jagged"></view>
+      <view class="jagged"></view>
         
   </view>
 
 </view>
 
+
+<van-action-sheet bind:close="onClose" show="{{ showAction }}" title="明细">
+  <view class="padding-lg">
+  <van-cell-group>
+  
+  <van-field
+    id="name"
+    value="{{ form.name }}"
+    required
+    clearable
+    label="商品名"
+    input-align="right"
+    size="large"
+    placeholder="请输入商品"
+    bind:input="onInput"
+  />
+  <van-cell title="数量" required size="large">
+    <van-stepper id="amount"  bind:change="onInput" slot="right-icon" value="{{ form.amount }}" integer  />
+  </van-cell>
+  <van-field
+    id="money"
+    value="{{ form.money }}"
+    input-align="right"
+    type="number"
+    label="金额"
+    size="large"
+    placeholder="请输入金额"
+    required
+    bind:input="onInput"
+  />
+</van-cell-group>
+  </view>
+
+<view class="padding-xl flex justify-around align-center">
+  <van-button wx:if="{{saveType=='edit'}}" custom-style="padding: 20rpx 50rpx"	icon="delete" block color="var(--gray)">删除</van-button>
+  <van-button bind:tap="onSave" custom-style="padding: 20rpx 50rpx" icon="edit" block color="var(--cyan)">保存</van-button>
+</view>
+</van-action-sheet>
 

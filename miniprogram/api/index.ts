@@ -104,3 +104,35 @@ export async function updateBill(billId: number, data: AnyObject): Promise<AnyOb
     data
   })
 } 
+
+
+// 添加明细
+export async function addBillDeltail(billId: number, data: AnyObject): Promise<AnyObject>{
+  return await http({
+    url: `/v1/bill/${billId}/detail`,
+    method: 'POST',
+    data
+  })
+}
+// 编辑明细
+export async function updateillDeltail(Id: number, data: AnyObject): Promise<AnyObject>{
+  return await http({
+    url: `/v1/bill_detail/${Id}`,
+    method: 'PUT',
+    data
+  })
+}
+// 删除明细
+export async function delBillDeltail(Id: number): Promise<AnyObject>{
+  return await http({
+    url: `/v1/bill_detail/${Id}`,
+    method: 'DELETE'
+  })
+}
+// 明细列表
+export async function getBillDeltails(billId: number): Promise<AnyArray>{
+  return await http({
+    url: `/v1/bill/${billId}/detail`,
+    method: 'GET'
+  })
+}
