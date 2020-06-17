@@ -10,7 +10,11 @@
     "pages/main/menu/menu",
     "pages/ledger/bill/bill",
     "pages/ledger/analysis/analysis",
-    "pages/ledger/setting/setting"
+    "pages/ledger/setting/setting",
+    "pages/ledger/setting_bill_type/setting_bill_type",
+    "pages/ledger/setting_ledger/setting_ledger",
+    "pages/ledger/setting_account/setting_account",
+    "pages/ledger/setting_member/setting_member"
   ],
   "window": {
     "navigationBarBackgroundColor": "#39b54a",

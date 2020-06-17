@@ -84,17 +84,19 @@ Component({
             }
             this.setData({
                 loading: true
-            })
-            wx.showLoading({
-                title: '加载中'
-            })
-            getBills(this.data.ledgerId, this.data.params).then(res=>{
-                this.handleBillsRes(res)
-                wx.hideLoading()
-                this.setData({
-                    loading: false
+            },()=>{
+                wx.showLoading({
+                    title: '加载中'
                 })
+                getBills(this.data.ledgerId, this.data.params).then(res=>{
+                    this.handleBillsRes(res)
+                    wx.hideLoading()
+                    this.setData({
+                        loading: false
+                    })
+                })                
             })
+
         },
         handleBillsRes(res: AnyObject): void{
             const list = res.list as AnyArray

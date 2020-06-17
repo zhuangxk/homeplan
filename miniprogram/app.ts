@@ -4,12 +4,13 @@ import { uploadUserInfo } from './api/index'
 App<IAppOption>({
   globalData: { 
     isLogin: false,
-    ledger: {}
+    ledger: {},
   },
   userInfoReadyCallback(data: WechatMiniprogram.GetUserInfoSuccessCallbackResult){
     uploadUserInfo(data.userInfo).then(
       (res)=>{
         console.log(res)
+        this.globalData.userInfo = res
       }
     )      
   },
@@ -38,6 +39,8 @@ App<IAppOption>({
   onLaunch() {
       // 获取用户信息
     this.getUserInfo().then((res: any)=>{
+      console.log('获取用户信息', res)
+      this.globalData.userInfo = res.userInfo
       this.userInfoReadyCallback(res)
     })
     wx.getSystemInfo({

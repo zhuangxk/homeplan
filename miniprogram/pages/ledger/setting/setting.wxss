@@ -1,1 +1,4 @@
-/* miniprogram/pages/ledger/setting/setting.wxss */
+/* @import "/colorui/main.wxss"; */
+.setting-item{
+    height: 120rpx;
+}

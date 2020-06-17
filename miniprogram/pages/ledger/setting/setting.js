@@ -1,66 +1,20 @@
-// miniprogram/pages/ledger/setting/setting.js
-Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
-})
+"use strict";
+var app = getApp();
+console.log('setting 组件开始构建');
+Component({
+    options: {
+        addGlobalClass: true
+    },
+    data: {
+        dddd: 'ddd',
+    },
+    lifetimes: {
+        ready: function () {
+            console.log(app.globalData.userInfo);
+            this.setData({
+                userInfo: app.globalData.userInfo
+            });
+        }
+    }
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2V0dGluZy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbInNldHRpbmcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLElBQU0sR0FBRyxHQUFHLE1BQU0sRUFBYyxDQUFBO0FBQ2hDLE9BQU8sQ0FBQyxHQUFHLENBQUMsZ0JBQWdCLENBQUMsQ0FBQTtBQUM3QixTQUFTLENBQUM7SUFDTixPQUFPLEVBQUM7UUFDSixjQUFjLEVBQUUsSUFBSTtLQUN2QjtJQUNELElBQUksRUFBQztRQUNELElBQUksRUFBRSxLQUFLO0tBQ2Q7SUFDRCxTQUFTLEVBQUU7UUFDUCxLQUFLO1lBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQyxHQUFHLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQyxDQUFBO1lBQ3BDLElBQUksQ0FBQyxPQUFPLENBQUM7Z0JBQ1QsUUFBUSxFQUFFLEdBQUcsQ0FBQyxVQUFVLENBQUMsUUFBUTthQUNwQyxDQUFDLENBQUE7UUFDTixDQUFDO0tBQ0o7Q0FDSixDQUFDLENBQUEiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBhcHAgPSBnZXRBcHA8SUFwcE9wdGlvbj4oKVxyXG5jb25zb2xlLmxvZygnc2V0dGluZyDnu4Tku7blvIDlp4vmnoTlu7onKVxyXG5Db21wb25lbnQoe1xyXG4gICAgb3B0aW9uczp7XHJcbiAgICAgICAgYWRkR2xvYmFsQ2xhc3M6IHRydWVcclxuICAgIH0sXHJcbiAgICBkYXRhOntcclxuICAgICAgICBkZGRkOiAnZGRkJyxcclxuICAgIH0sXHJcbiAgICBsaWZldGltZXM6IHtcclxuICAgICAgICByZWFkeSgpe1xyXG4gICAgICAgICAgICBjb25zb2xlLmxvZyhhcHAuZ2xvYmFsRGF0YS51c2VySW5mbylcclxuICAgICAgICAgICAgdGhpcy5zZXREYXRhKHtcclxuICAgICAgICAgICAgICAgIHVzZXJJbmZvOiBhcHAuZ2xvYmFsRGF0YS51c2VySW5mb1xyXG4gICAgICAgICAgICB9KVxyXG4gICAgICAgIH1cclxuICAgIH1cclxufSkiXX0=

@@ -1,21 +1,16 @@
-<van-cell value="账本" icon="shop-o" is-link>
-  <view slot="title">
-    <view class="van-cell-text">单元格</view>
-    <van-tag type="danger">标签</van-tag>
+<view class="bg-cyan padding-lg">
+  <view class="cu-avatar round lg" style="background-image:url({{userInfo.AvatarUrl}});">
   </view>
-</van-cell>
-<van-cell-group title="分组1">
-  <van-cell title="账本" value="内容" />
-</van-cell-group>
-<van-cell-group title="分组2">
-  <van-cell title="账户" value="内容" />
-</van-cell-group>
-<van-cell-group title="分组2">
-  <van-cell title="预算" value="内容" />
-</van-cell-group>
-<van-cell-group title="分组2">
-  <van-cell title="账单类型" value="内容" />
-</van-cell-group>
-<van-cell-group title="分组2">
-  <van-cell title="账本成员" value="内容" />
+  <text class="text-xl" > {{userInfo.Nickname}} </text>
+</view>
+<van-cell-group>
+    <van-cell url="/pages/ledger/setting_ledger/setting_ledger" custom-class="setting-item" border="{{false}}"	center size="large" is-link title="账本" icon="balance-list-o" />
+    <van-cell url="/pages/ledger/setting_bill_type/setting_bill_type" custom-class="setting-item" border="{{false}}" center size="large" is-link title="账单类型" icon="bookmark-o" />
+    <van-cell url="/pages/ledger/setting_member/setting_member" custom-class="setting-item" border="{{false}}" center size="large" is-link title="账本成员" icon="friends-o" />
+    <van-cell url="/pages/ledger/setting_account/setting_account" custom-class="setting-item" border="{{false}}" center size="large" is-link title="账本账户" icon="gold-coin-o" />
+  
+    <van-button size="large" 	 block icon="smile-comment-o" plain show-message-card	>
+      意见反馈
+    </van-button>
+      <!-- custom-style="justify-content: start"  <van-cell custom-class="setting-item" border="{{false}}" center size="large" clickable title="意见反馈" icon="smile-comment-o" /> -->
 </van-cell-group>

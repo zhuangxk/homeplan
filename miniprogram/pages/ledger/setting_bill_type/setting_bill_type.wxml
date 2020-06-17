@@ -1,0 +1,4 @@
+<cu-custom isBack bgColor="bg-cyan">
+    <text slot="backText">返回</text>
+    <text slot="content">账单类型</text>
+</cu-custom>

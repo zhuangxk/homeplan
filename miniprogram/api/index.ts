@@ -22,7 +22,7 @@ export function login(): Promise<string>{
 
 }
 
-export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<AnyObject>{
+export async function uploadUserInfo(data: WechatMiniprogram.UserInfo): Promise<WechatMiniprogram.UserInfo>{
   return await http({
     url: '/v1/user',
     method: 'POST',
