@@ -4,6 +4,8 @@ import { formatMonthDate } from "../../../utils/util"
 import Dialog from "@vant/weapp/dialog/dialog"
 // const Dialog = require('@vant/weapp/dialog/dialog')
 
+const year = new Date().getFullYear()
+const month = new Date().getMonth()
 Component({
     data: {
         keyboardShow: false,
@@ -16,6 +18,8 @@ Component({
         total: 0,
         slideReset: true,
         params: {
+            "year": year,
+            "month": month +1,
             "page": 1,
             "page_size": -1
         },
@@ -23,6 +27,18 @@ Component({
         actionType: 'add',
         curEditItem: {},
         lastTouchId: 0,
+        pickerVal: year + '年' + (month + 1) + '月',
+        months: [
+            {
+                values:  [year - 2 + '年', year - 1 + '年', year + '年'],
+                defaultIndex: 2
+            },
+            {
+                values: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+                defaultIndex: month
+            }
+        ],
+        monthShow: false
     },
     properties: {
         ledgerId: { 
@@ -66,14 +82,18 @@ Component({
             if(this.data.loading){
                 return
             }
-            this.data.loading = true
+            this.setData({
+                loading: true
+            })
             wx.showLoading({
                 title: '加载中'
             })
             getBills(this.data.ledgerId, this.data.params).then(res=>{
                 this.handleBillsRes(res)
                 wx.hideLoading()
-                this.data.loading = false
+                this.setData({
+                    loading: false
+                })
             })
         },
         handleBillsRes(res: AnyObject): void{
@@ -104,7 +124,7 @@ Component({
                 total: res.total,
                 dateMap,
                 dateMapKeys: Object.keys(dateMap),
-                monthMap: monthCount[0],
+                monthMap: monthCount[0] || {},
             })
        
         },
@@ -178,6 +198,32 @@ Component({
             this.setData({
                 lastTouchId: id,
                 slideReset: true,
+            })
+        },
+
+        onMonthCancel(): void{
+            this.setData({
+                monthShow: false
+            })
+        },
+        onMonthShow(): void{
+            this.setData({
+                monthShow: true
+            })
+        },
+        onMonthConfirm(e): void{
+            const [yi, mi] = e.detail.index
+            this.setData({
+                monthShow: false,
+                pickerVal: [year - 2, year - 1, year][yi] + '年' + (mi+1) + '月',
+                params: {
+                    "page_size": -1,
+                    page:1,
+                    month: mi + 1,
+                    year: [year - 2, year - 1, year][yi]
+                }
+            }, ()=>{
+                this.getBills()
             })
         }
 

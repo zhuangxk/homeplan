@@ -2,10 +2,13 @@
 
  <!-- 当份统计 -->
 <view class="ledger-bill-top-panel">
-  <text style="margin-right:20px">2020年4月</text>
+  <view bind:tap="onMonthShow">
+    <text> {{pickerVal}} </text>
+    <van-icon name="arrow-down" />
+  </view>
 
-  <text>支出<text class="ledger-bill-top-panel-num">{{monthMap["sum_out"]}}</text></text>
-  <text style="margin-left:20px">收入<text class="ledger-bill-top-panel-num">{{monthMap["sum_in"]}}</text></text>
+  <text style="margin-left:20px;float:right">收入<text class="ledger-bill-top-panel-num">{{monthMap["sum_in"] || 0}}</text></text>
+  <text style="float:right">支出<text class="ledger-bill-top-panel-num">{{monthMap["sum_out"] || 0}}</text></text>
 </view>
 
 
@@ -15,7 +18,6 @@
   >
 <view wx:key="index" wx:for="{{dateMapKeys}}">
     <view class="ledger-bill-list-date">
-      {{item}}   
       支出 {{dateMap[item]['sumOut']}}
       收入 {{dateMap[item]['sumIn']}}
     </view>
@@ -62,6 +64,10 @@
     dashed  hairline contentPosition="center">
     到底啦
    </van-divider>
+   <view 
+    wx:else class="text-center padding-lg text-gray">
+    {{ loading?"正在获取账单...": "本月没有账目呢"}}
+   </view>
 </scroll-view>
 
 
@@ -85,4 +91,22 @@
 <view class="ledger-bill-top-plus">
   <van-icon name="plus" size="30px" bind:tap="onAdd" />
 </view>
+
+
+<!-- 月份 -->
+<van-popup
+  show="{{ monthShow }}"
+  round
+  position="bottom"
+  bind:close="onMonthCancel"
+>
+  <van-picker
+    show-toolbar
+    title="请选择月份"
+    columns="{{ months }}"
+    bind:cancel="onMonthCancel"
+    bind:confirm="onMonthConfirm"
+  />
+</van-popup>
+
 

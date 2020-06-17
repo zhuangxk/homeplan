@@ -20,6 +20,7 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "van-picker": "@vant/weapp/picker/index",
     "van-stepper": "@vant/weapp/stepper/index",
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-image": "@vant/weapp/image/index",

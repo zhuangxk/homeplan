@@ -5,6 +5,7 @@
 Page{
     --tabbar-item-font-size:16px;
     --tabbar-height: 60px;
+    --picker-action-text-color: var(--cyan);
 }
 
 .scrollPage {
