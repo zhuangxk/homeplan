@@ -1,9 +1,9 @@
 <!--miniprogram/pages/home/home.wxml-->
 <view >
   <cu-custom bgColor="bg-cyan">
-      <view slot="right" class="action">
+      <!-- <view slot="right" class="action">
         <van-icon class="ledger-nav-btn" name="apps-o"  size="1.5em" />
-        </view>
+        </view> -->
       <view slot="content">
          {{defaultLedger.title}}
          <!-- <van-button color="var(--cyan)" icon="star-o" size="small" type="primary">默认账本</van-button> -->

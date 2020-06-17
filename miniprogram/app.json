@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/ledger/setting_bill_type/setting_bill_type",
     "pages/ledger/home",
     "pages/ledger/bill_detail/bill_detail",
     "pages/index/index",
@@ -11,7 +12,6 @@
     "pages/ledger/bill/bill",
     "pages/ledger/analysis/analysis",
     "pages/ledger/setting/setting",
-    "pages/ledger/setting_bill_type/setting_bill_type",
     "pages/ledger/setting_ledger/setting_ledger",
     "pages/ledger/setting_account/setting_account",
     "pages/ledger/setting_member/setting_member"
@@ -24,6 +24,7 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "iconfont": "/components/iconfont/iconfont",
     "van-picker": "@vant/weapp/picker/index",
     "van-stepper": "@vant/weapp/stepper/index",
     "van-action-sheet": "@vant/weapp/action-sheet/index",

@@ -18,6 +18,7 @@
   >
 <view wx:key="index" wx:for="{{dateMapKeys}}">
     <view class="ledger-bill-list-date">
+      {{item}}
       支出 {{dateMap[item]['sumOut']}}
       收入 {{dateMap[item]['sumIn']}}
     </view>

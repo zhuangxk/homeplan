@@ -15,6 +15,7 @@
     "eslint": "^6.8.0"
   },
   "devDependencies": {
+    "mini-program-iconfont-cli": "^0.6.0",
     "miniprogram-api-typings": "^2.8.3-1",
     "typescript": "^3.3.3333"
   }
