@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/ledger/setting_bill_type/setting_bill_type",
     "pages/ledger/home",
+    "pages/ledger/setting_bill_type/setting_bill_type",
     "pages/ledger/bill_detail/bill_detail",
     "pages/index/index",
     "pages/login/login",

@@ -1,1 +1,4 @@
-/* miniprogram/pages/ledger/analysis/analysis.wxss */
+.container{
+    width: 100%;
+    height: 400px;
+}

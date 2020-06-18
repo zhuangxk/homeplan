@@ -4,7 +4,7 @@
     "paths": {
       "@vant/weapp/*": [
         "miniprogram/node_modules/@vant/weapp/dist/*"
-      ]
+      ],
     },
     "strictNullChecks": true,
     "noImplicitAny": true,
@@ -30,7 +30,7 @@
     ]
   },
   "include": [
-    "./**/*.ts"
+    "./**/*.ts" 
   ],
   "exclude": [
     "node_modules",
