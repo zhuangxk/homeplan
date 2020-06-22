@@ -1,1 +1,11 @@
-/* miniprogram/pages/ledger/setting_bill_type/setting_bill_type.wxss */
+.icon-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 50% 50%;
+  height: 95%;
+  width: 95%;
+  font-size: 12px;
+}
