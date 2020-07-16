@@ -4,18 +4,67 @@
 </cu-custom>
 
 
+<view class="cu-bar bg-white solid-bottom">
+  <view class="action">
+    <text class="cuIcon-settings"></text>共享账本 - 类型
+  </view>
+  <view class="action" url="design" hover-class="text-cyan">
+      <button bind:tap="toggleEditMode" class="cu-btn round margin-left-sm">
+         {{editMode?'取消':'编辑'}} </button>
+      <button bind:tap="toggleDeleteMode" class="cu-btn round margin-left-sm">
+          {{deleteMode?'取消':'删除'}}</button>
+  </view>
+</view>
 <!-- <iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/>
 <iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/>
 <iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/>
 <iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/> -->
+<view class="cu-bar solid-bottom">
+  <view class="action">
+    <text class="cuIcon-title text-cyan"></text>支出
+  </view>
+</view>
 
-<drag wx:if="{{types[1].length > 0}}" columns="5" listData="{{types[1]}}">
-    <view class="icon-item shadow --gray" wx:for="{{types[1]}}" wx:key="id"  slot="{{item.id}}">
-        <iconfont name="food" color="{{['', '#1cbbb4']}}" size="40"/>
+<view class="padding-lr">
 
-        <text >食物</text>
-    </view>
-    <view >
-    </view>
+    <drag wx:if="{{types[1].length > 0}}" columns="5" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{types[1]}}">
+        <view class="icon-item shadow --gray" wx:for="{{types[1]}}" wx:key="id"  slot="{{item.id}}">
+            <iconfont name="food" color="{{['', '#1cbbb4']}}" size="30"/>
+            <text >{{item.name}}</text>
+            <view class="icon-bth" wx:if="{{editMode}}">
+                编辑
+            </view>
+            <view class="icon-bth" wx:if="{{deleteMode}}">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <view class="icon-item" style="font-size: 60rpx">
+            <text class="cuIcon-add"></text>
+        </view>
+    </drag>
+</view>
 
-</drag>
+<view class="cu-bar solid-bottom margin-top-lg">
+  <view class="action">
+    <text class="cuIcon-title text-cyan"></text>收入
+  </view>
+</view>
+
+<view class="padding-lr">
+
+    <drag wx:if="{{types[2].length > 0}}" columns="5" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{types[2]}}">
+        <view class="icon-item shadow --gray" wx:for="{{types[2]}}" wx:key="id"  slot="{{item.id}}">
+            <iconfont name="food" color="{{['', '#1cbbb4']}}" size="30"/>
+            <text>{{item.name}}</text>
+            <view class="icon-bth" wx:if="{{editMode}}">
+                编辑
+            </view>
+            <view class="icon-bth" wx:if="{{deleteMode}}">
+               <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <view class="icon-item" style="font-size: 60rpx">
+            <text class="cuIcon-add"></text>
+        </view>
+    </drag>
+</view>

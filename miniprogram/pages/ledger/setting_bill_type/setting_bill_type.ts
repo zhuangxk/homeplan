@@ -7,6 +7,8 @@ Page({
       1: [] as AnyArray,
       2: [] as AnyArray,
     } as Record<number, AnyArray>,
+    editMode: false,
+    deleteMode: false
   },
   async getTypes(): Promise<void>{
     app.globalData.ledger.id = 1
@@ -26,5 +28,17 @@ Page({
   },
   onLoad(){
     this.getTypes() 
+  },
+  toggleEditMode(){
+    this.setData({
+      editMode: !this.data.editMode,
+      deleteMode: false
+    })
+  },
+  toggleDeleteMode(){
+    this.setData({
+      deleteMode: !this.data.deleteMode,
+      editMode: false
+    })
   }
 })
