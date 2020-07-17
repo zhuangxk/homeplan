@@ -46,13 +46,23 @@ export async function getDefaultLedger(): Promise<AnyObject>{
   })
 }
 
-// 账本类型列表
+// 账单类型列表
 export async function getBillTypes( id: number): Promise<AnyArray> {
   return await http({
     url: `/v1/ledger/${id}/bill_type`,
     method: 'GET'
   })
 }
+
+// 账单类型添加
+export async function addBillTypes( ledgerID: number, data: AnyObject): Promise<AnyObject> {
+  return await http({
+    url: `/v1/ledger/${ledgerID}/bill_type`,
+    method: 'POST',
+    data
+  })
+}
+
 
 // 账户列表
 export async function getAccounts( id: number): Promise<AnyArray> {

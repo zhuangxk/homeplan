@@ -11,14 +11,9 @@
   <view class="action" url="design" hover-class="text-cyan">
       <button bind:tap="toggleEditMode" class="cu-btn round margin-left-sm">
          {{editMode?'取消':'编辑'}} </button>
-      <button bind:tap="toggleDeleteMode" class="cu-btn round margin-left-sm">
-          {{deleteMode?'取消':'删除'}}</button>
   </view>
 </view>
-<!-- <iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/>
-<iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/>
-<iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/>
-<iconfont name="food" color="{{['', '#1cbbb4']}}" size="100"/> -->
+
 <view class="cu-bar solid-bottom">
   <view class="action">
     <text class="cuIcon-title text-cyan"></text>支出
@@ -31,20 +26,17 @@
         <view class="icon-item shadow --gray" wx:for="{{types[1]}}" wx:key="id"  slot="{{item.id}}">
             <iconfont name="food" color="{{['', '#1cbbb4']}}" size="30"/>
             <text >{{item.name}}</text>
-            <view class="icon-bth" wx:if="{{editMode}}">
+            <view class="icon-bth" wx:if="{{editMode}}"  bind:tap="onEdit">
                 编辑
             </view>
-            <view class="icon-bth" wx:if="{{deleteMode}}">
-                <text class="cuIcon-close text-red"></text>
-            </view>
         </view>
-        <view class="icon-item" style="font-size: 60rpx">
+        <view class="icon-item" style="font-size: 60rpx" bind:tap="onAdd" data-type="1">
             <text class="cuIcon-add"></text>
         </view>
     </drag>
 </view>
 
-<view class="cu-bar solid-bottom margin-top-lg">
+<!-- <view class="cu-bar solid-bottom margin-top-lg">
   <view class="action">
     <text class="cuIcon-title text-cyan"></text>收入
   </view>
@@ -56,15 +48,41 @@
         <view class="icon-item shadow --gray" wx:for="{{types[2]}}" wx:key="id"  slot="{{item.id}}">
             <iconfont name="food" color="{{['', '#1cbbb4']}}" size="30"/>
             <text>{{item.name}}</text>
-            <view class="icon-bth" wx:if="{{editMode}}">
+            <view class="icon-bth" wx:if="{{editMode}}" bind:tap="onEdit">
                 编辑
             </view>
-            <view class="icon-bth" wx:if="{{deleteMode}}">
-               <text class="cuIcon-close text-red"></text>
-            </view>
         </view>
-        <view class="icon-item" style="font-size: 60rpx">
+        <view class="icon-item" style="font-size: 60rpx" bind:tap="onAdd">
             <text class="cuIcon-add"></text>
         </view>
     </drag>
+</view> -->
+
+
+
+<van-action-sheet bind:close="onAddClose" show="{{ formShow }}" title="{{form.type == 1 ? '支出类型' : '收入类型'}}">
+  <view class="padding-lg">
+    <van-cell-group>
+        
+        <van-field
+            id="name"
+            value="{{ form.name }}"
+            required
+            clearable
+            label="名称"
+            input-align="right"
+            size="large"
+            placeholder="请输入名称"
+            bind:input="onInput"
+        />
+        <van-cell size="large" title="图标" is-link value="请选一个图标" arrow-direction="down" />
+    </van-cell-group>
+  </view>
+  <view class="padding-lg"></view>
+  
+
+<view class="padding-xl flex justify-around align-center">
+  <van-button size="small" bind:tap="onDel" wx:if="{{editMode}}" custom-style="padding: 20rpx 50rpx"	icon="delete" block color="var(--gray)">删除</van-button>
+  <van-button size="small" bind:tap="onSave" custom-style="padding: 20rpx 50rpx" icon="edit" block color="var(--cyan)">保存</van-button>
 </view>
+</van-action-sheet>
