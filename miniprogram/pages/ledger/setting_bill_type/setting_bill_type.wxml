@@ -14,26 +14,31 @@
   </view>
 </view>
 
-<view class="cu-bar solid-bottom">
-  <view class="action">
-    <text class="cuIcon-title text-cyan"></text>支出
-  </view>
-</view>
+<view  wx:for="{{types}}" wx:for-item="itemType" wx:key="itemKey" wx:for-index="itemKey"> 
+    <view class="cu-bar solid-bottom">
+      <view class="action">
+        <text class="cuIcon-title text-cyan"></text>
+        <text wx:if="{{itemKey==1}}">支出</text>
+        <text wx:if="{{itemKey==2}}">收入</text>
+        
+      </view>
+    </view>
 
-<view class="padding-lr">
+    <view class="padding-lr">
 
-    <drag wx:if="{{types[1].length > 0}}" columns="5" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{types[1]}}">
-        <view class="icon-item shadow --gray" wx:for="{{types[1]}}" wx:key="id"  slot="{{item.id}}">
-            <iconfont name="food" color="{{['', '#1cbbb4']}}" size="30"/>
-            <text >{{item.name}}</text>
-            <view class="icon-bth" wx:if="{{editMode}}"  bind:tap="onEdit">
-                编辑
+        <drag wx:if="{{itemType.length > 0}}" wx:key="itemType.length" columns="5" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{itemType}}">
+            <view class="icon-item shadow --gray" wx:for="{{itemType}}" wx:key="id"  slot="{{item.id}}">
+                <iconfont name="{{item.icon}}" color="{{['', '#1cbbb4']}}" size="30"/>
+                <text >{{item.name}}</text>
+                <view class="icon-bth" wx:if="{{editMode}}" data-id="{{item.id}}" bind:tap="onEdit">
+                    编辑
+                </view>
             </view>
-        </view>
-        <view class="icon-item" style="font-size: 60rpx" bind:tap="onAdd" data-type="1">
-            <text class="cuIcon-add"></text>
-        </view>
-    </drag>
+            <view class="icon-item" style="font-size: 60rpx" bind:tap="onAdd" data-type="{{itemKey}}">
+                <text class="cuIcon-add"></text>
+            </view>
+        </drag>
+    </view>
 </view>
 
 <!-- <view class="cu-bar solid-bottom margin-top-lg">
@@ -75,7 +80,7 @@
             placeholder="请输入名称"
             bind:input="onInput"
         />
-        <van-cell size="large" title="图标" arrow-direction="down" >
+        <van-cell required size="large" title="图标" arrow-direction="down" >
           <text wx:if="{{selectedIconIndex<0}}">请选择一个图标</text>
           <iconfont wx:else name="{{icons[selectedIconIndex]}}" color="{{['', '#1cbbb4']}}" size="30"/>
         </van-cell>
@@ -93,3 +98,6 @@
   <van-button size="small" bind:tap="onSave" custom-style="padding: 20rpx 50rpx" icon="edit" block color="var(--cyan)">保存</van-button>
 </view>
 </van-action-sheet>
+
+<van-dialog confirm-button-color="var(--cyan)" id="van-dialog" />
+

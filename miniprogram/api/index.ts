@@ -55,7 +55,7 @@ export async function getBillTypes( id: number): Promise<AnyArray> {
 }
 
 // 账单类型添加
-export async function addBillTypes( ledgerID: number, data: AnyObject): Promise<AnyObject> {
+export async function addBillType( ledgerID: number, data: AnyObject): Promise<AnyObject> {
   return await http({
     url: `/v1/ledger/${ledgerID}/bill_type`,
     method: 'POST',
@@ -63,6 +63,31 @@ export async function addBillTypes( ledgerID: number, data: AnyObject): Promise<
   })
 }
 
+// 账单类型删除
+export async function delBillType( id: number): Promise<AnyObject> {
+  return await http({
+    url: `/v1/bill_type/${id}`,
+    method: 'DELETE'
+  })
+}
+
+// 账单类型更新
+export async function updateBillType( id: number, data: AnyObject): Promise<AnyObject> {
+  return await http({
+    url: `/v1/bill_type/${id}`,
+    method: 'PUT',
+    data
+  })
+}
+
+// 账单类型排序
+export async function sortBillType(data: AnyObject): Promise<AnyObject> {
+  return await http({
+    url: `/bill_type/sort`,
+    method: 'POST',
+    data
+  })
+}
 
 // 账户列表
 export async function getAccounts( id: number): Promise<AnyArray> {

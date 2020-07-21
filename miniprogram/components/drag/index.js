@@ -41,11 +41,18 @@ Component({
 	},
 	properties: {
 		extraNodes: {type: Array, value: []},                  // 额外节点
-		listData: {type: Array, value: []},                    // 数据源
+		listData: {type: Array, value: [], observer(){
+			this.init();
+		}},                    // 数据源
 		columns: {type: Number, value: 1},                     // 列数
 		topSize: {type: Number, value: 0},                     // 顶部高度
 		bottomSize: {type: Number, value: 0},                  // 底部高度
 		scrollTop: {type: Number, value: 0}                    // 页面滚动高度
+	},
+	lifetimes: {
+		ready(){
+			this.init();
+		}
 	},
 	data: {
 		/* 未渲染数据 */
@@ -76,11 +83,11 @@ Component({
 		 */
 		longPress(e) {
 			// 获取触摸点信息
-			let startTouch = e.changedTouches[0];
+			const startTouch = e.changedTouches[0];
 			if (!startTouch) return;
 
 			// 固定项则返回
-			let index = e.currentTarget.dataset.index;
+			const index = e.currentTarget.dataset.index;
 			if (this.isFixed(index)) return;
 
 			// 防止多指触发 drag 动作, 如果已经在 drag 中则返回, touchstart 事件中有效果
@@ -103,7 +110,7 @@ Component({
 		},
 		touchMove(e) {
 			// 获取触摸点信息
-			let currentTouch = e.changedTouches[0];
+			const currentTouch = e.changedTouches[0];
 			if (!currentTouch) return;
 
 			if (!this.data.dragging) return;
@@ -153,9 +160,9 @@ Component({
 			this.setData({tranX: tranX, tranY: tranY});
 
 			// 获取 startKey 和 endKey
-			let startKey = parseInt(e.currentTarget.dataset.key);
-			let curX = Math.round(tranX / itemDom.width), curY = Math.round(tranY / itemDom.height);
-			let endKey = curX + columns * curY;
+			const startKey = parseInt(e.currentTarget.dataset.key);
+			const curX = Math.round(tranX / itemDom.width), curY = Math.round(tranY / itemDom.height);
+			const endKey = curX + columns * curY;
 
 			// 遇到固定项和超出范围则返回
 			if (this.isFixed(endKey) || IsOutRange(curX, columns, curY, rows, endKey, this.data.list.length)) return;
@@ -177,7 +184,7 @@ Component({
 		 */
 		sort(startKey, endKey) {
 			this.setData({itemTransition: true});
-			let list = this.data.list.map((item) => {
+			const list = this.data.list.map((item) => {
 				if (item.fixed) return item;
 				if (startKey < endKey) { // 正序拖动
 					if (item.sortKey > startKey && item.sortKey <= endKey) {
@@ -203,7 +210,7 @@ Component({
 		excludeFix(sortKey, startKey, type) {
 			if (sortKey === startKey) return startKey;
 			if (this.data.list[sortKey].fixed) {
-				let _sortKey = type === 'reduce' ? sortKey - 1 : sortKey + 1;
+				const _sortKey = type === 'reduce' ? sortKey - 1 : sortKey + 1;
 				return this.excludeFix(_sortKey, startKey, type);
 			} else {
 				return sortKey;
@@ -213,9 +220,9 @@ Component({
 		 * 根据排序后 list 数据进行位移计算
 		 */
 		updateList(data, vibrate = true) {
-			let {platform} = this.data;
+			const {platform} = this.data;
 
-			let list = data.map((item, index) => {
+			const list = data.map((item, index) => {
 				item.tranX = `${(item.sortKey % this.data.columns) * 100}%`;
 				item.tranY = `${Math.floor(item.sortKey / this.data.columns) * 100}%`;
 				return item;
@@ -231,7 +238,7 @@ Component({
 		 * 判断是否是固定的 item
 		 */
 		isFixed(index) {
-			let list = this.data.list;
+			const list = this.data.list;
 			if (list && list[index] && list[index].fixed) return 1;
 			return 0;
 		},
@@ -257,12 +264,12 @@ Component({
 		 * 点击每一项后触发事件
 		 */
 		itemClick(e) {
-			let {index, key} = e.currentTarget.dataset;
-			let list = this.data.list;
-			let currentItem = list[index];
+			const {index, key} = e.currentTarget.dataset;
+			const list = this.data.list;
+			const currentItem = list[index];
 
 			if (!currentItem.extraNode) {
-				let _list = [];
+				const _list = [];
 
 				list.forEach((item) => {
 					_list[item.sortKey] = item;
@@ -271,7 +278,7 @@ Component({
 				let currentKey = -1;
 
 				for (let i = 0, len = _list.length; i < len; i++) {
-					let item = _list[i];
+					const item = _list[i];
 					if (!item.extraNode) {
 						currentKey++;
 					}
@@ -292,7 +299,7 @@ Component({
 		 * @param type 事件类型
 		 */
 		triggerCustomEvent(list, type) {
-			let _list = [], listData = [];
+			const _list = [], listData = [];
 
 			list.forEach((item) => {
 				_list[item.sortKey] = item;
@@ -310,11 +317,11 @@ Component({
 		 *  初始化获取 dom 信息
 		 */
 		initDom() {
-			let {windowWidth, windowHeight, platform, SDKVersion} = wx.getSystemInfoSync();
+			const {windowWidth, windowHeight, platform, SDKVersion} = wx.getSystemInfoSync();
 
 			this.data.pageMetaSupport = compareVersion(SDKVersion, '2.9.0') >= 0;
 
-			let remScale = (windowWidth || 375) / 375,
+			const remScale = (windowWidth || 375) / 375,
 				realTopSize = this.data.topSize * remScale / 2,
 				realBottomSize = this.data.bottomSize * remScale / 2;
 
@@ -324,7 +331,7 @@ Component({
 			this.data.realBottomSize = realBottomSize;
 
 			this.createSelectorQuery().select(".item").boundingClientRect((res) => {
-				let rows = Math.ceil(this.data.list.length / this.data.columns);
+				const rows = Math.ceil(this.data.list.length / this.data.columns);
 
 				this.data.rows = rows;
 				this.data.itemDom = res;
@@ -346,7 +353,7 @@ Component({
 			this.clearData();
 			this.setData({itemTransition: false});
 
-			let delItem = (item, extraNode) => ({
+			const delItem = (item, extraNode) => ({
 				id: item.dragId,
 				slot: item.slot,
 				fixed: item.fixed,
@@ -356,8 +363,8 @@ Component({
 				data: item
 			});
 
-			let {listData, extraNodes} = this.data;
-			let _list = [], _before=[], _after=[], destBefore = [], destAfter = [];
+			const {listData, extraNodes} = this.data;
+			const _list = [], _before=[], _after=[], destBefore = [], destAfter = [];
 
 			extraNodes.forEach((item, index) => {
 				if(item.type === "before") {
@@ -382,7 +389,7 @@ Component({
 				});
 			});
 
-			let list = _before.concat(_list, _after).map((item, index) => {
+			const list = _before.concat(_list, _after).map((item, index) => {
 				item.sortKey = index; // 初始化 sortKey 为当前项索引值
 				item.tranX = `${(item.sortKey % this.data.columns) * 100}%`;
 				item.tranY = `${Math.floor(item.sortKey / this.data.columns) * 100}%`;
@@ -398,8 +405,5 @@ Component({
 			// 异步加载数据时候, 延迟执行 initDom 方法, 防止基础库 2.7.1 版本及以下无法正确获取 dom 信息
 			setTimeout(() => this.initDom(), 0);
 		}
-	},
-	ready() {
-		this.init();
 	}
 });
