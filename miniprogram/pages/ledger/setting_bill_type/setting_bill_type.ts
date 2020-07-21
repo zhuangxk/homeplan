@@ -13,11 +13,19 @@ Page({
     activeID: 0,
     // ledgerID: app.globalData.ledger.id,
     ledgerID: 1,
+    selectedIconIndex: 0,
     form: {
       name: '',
       type: 1,
       icon: ''
-    }
+    },
+    icons: ['verification_code','book','travel','food','digital','cultivate','plane','clothes',
+      'train','car','education','cash-gift','oil','cosmetology','electric','home','shopping',
+      'financing','fruits','cosmetics','work','snacks','communication','car-repair','traffic',
+      'social','friends','pets','housing','tuition','child','parking','water','config','express',
+      'elderly','vegetables','fun','sport','lottery','bookkeeping','reimbursement','taobao','salary',
+      'wifi','user','bonus','alimony','part-time-job','refund','alipay','daily-necessities'
+    ],
   },
   async getTypes(): Promise<void>{
     const billTypes = await getBillTypes(this.data.ledgerID)
@@ -75,6 +83,12 @@ Page({
           console.log(res)
       })
     }
+  },
+  onSel(e: any){
+    const { index } = e.currentTarget.dataset
+    this.setData({
+      selectedIconIndex: index
+    })
   }
   
 })

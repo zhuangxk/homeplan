@@ -75,10 +75,17 @@
             placeholder="请输入名称"
             bind:input="onInput"
         />
-        <van-cell size="large" title="图标" is-link value="请选一个图标" arrow-direction="down" />
+        <van-cell size="large" title="图标" arrow-direction="down" >
+          <text wx:if="{{selectedIconIndex<0}}">请选择一个图标</text>
+          <iconfont wx:else name="{{icons[selectedIconIndex]}}" color="{{['', '#1cbbb4']}}" size="30"/>
+        </van-cell>
     </van-cell-group>
+    <scroll-view scroll-x enable-flex style="display:flex; height: 100px">
+      <view bind:tap="onSel" data-index="{{index}}" wx:for="{{icons}}" wx:key="index"  class="icon-sel-item" style="{{selectedIconIndex==index?'background:ghostwhite':''}}">
+        <iconfont name="{{item}}" color="{{['', '#1cbbb4']}}" size="30"/>
+      </view>
+    </scroll-view>
   </view>
-  <view class="padding-lg"></view>
   
 
 <view class="padding-xl flex justify-around align-center">
