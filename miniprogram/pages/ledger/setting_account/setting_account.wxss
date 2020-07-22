@@ -1,1 +1,17 @@
-/* miniprogram/pages/ledger/setting_account/setting_account.wxss */
+@import "../../../styles/small_logo_sprite.wxss";
+
+.banklogo{
+    background-image: url("https://oss.toko.wang/bill_lib/small_logo_sprite.png");
+    /* background-image: url("https://apimg.alipay.com/combo.png?d=cashier&t=ABC"); */
+    /* https://apimg.alipay.com/combo.png?d=cashier&t=ABC/ */
+    /* https://creditcardapp.bankcomm.com/cbwsFfwbCsetWeb/assets/pc/images/cardManage/icon/ABC.png */
+    /* background-image: url("https://creditcardapp.bankcomm.com/cbwsFfwbCsetWeb/assets/pc/images/cardManage/icon/DBSCN.png"); */
+    background-repeat: no-repeat;
+    display: inline-block;
+    
+}
+.account-add{
+    font-size: 50px;
+    text-align: center;
+    color: var(--gray);
+}

@@ -2,3 +2,26 @@
     <text slot="backText">返回</text>
     <text slot="content">账户</text>
 </cu-custom>
+
+<view class='nav-list margin-top-xl'>
+    <navigator url="/pages/component/{{item.name}}/{{item.name}}" class="nav-li bg-white shadow" wx:for="{{accounts}}" wx:key="id">
+        <view>
+            <view class="banklogo ui-banklogo-s-ABC"></view>
+            {{item.name}}
+        </view>
+        <view class="nav-name">￥{{item.amount}}</view>
+
+        <!-- <text class='cuIcon-{{item.icon}}'></text> -->
+
+    </navigator>   
+    
+    <view class="nav-li bg-white">
+        <view class="account-add">
+            <text class='cuIcon-add'></text>
+        </view>
+    </view>
+</view>
+
+<!-- <view class="banklogo">
+
+</view> -->
