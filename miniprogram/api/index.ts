@@ -83,7 +83,7 @@ export async function updateBillType( id: number, data: AnyObject): Promise<AnyO
 // 账单类型排序
 export async function sortBillType(data: AnyObject): Promise<AnyObject> {
   return await http({
-    url: `/bill_type/sort`,
+    url: `/v1/bill_type/sort`,
     method: 'POST',
     data
   })

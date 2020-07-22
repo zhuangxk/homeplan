@@ -24,9 +24,9 @@
       </view>
     </view>
 
-    <view class="padding-lr">
+    <view class="padding-lr margin-top-sm margin-bottom-lg">
 
-        <drag wx:if="{{itemType.length > 0}}" wx:key="itemType.length" columns="5" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{itemType}}">
+        <drag bind:sortend="onSortend" wx:if="{{itemType.length > 0}}" wx:key="itemType.length" columns="5" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{itemType}}">
             <view class="icon-item shadow --gray" wx:for="{{itemType}}" wx:key="id"  slot="{{item.id}}">
                 <iconfont name="{{item.icon}}" color="{{['', '#1cbbb4']}}" size="30"/>
                 <text >{{item.name}}</text>
@@ -40,30 +40,6 @@
         </drag>
     </view>
 </view>
-
-<!-- <view class="cu-bar solid-bottom margin-top-lg">
-  <view class="action">
-    <text class="cuIcon-title text-cyan"></text>收入
-  </view>
-</view>
-
-<view class="padding-lr">
-
-    <drag wx:if="{{types[2].length > 0}}" columns="5" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{types[2]}}">
-        <view class="icon-item shadow --gray" wx:for="{{types[2]}}" wx:key="id"  slot="{{item.id}}">
-            <iconfont name="food" color="{{['', '#1cbbb4']}}" size="30"/>
-            <text>{{item.name}}</text>
-            <view class="icon-bth" wx:if="{{editMode}}" bind:tap="onEdit">
-                编辑
-            </view>
-        </view>
-        <view class="icon-item" style="font-size: 60rpx" bind:tap="onAdd">
-            <text class="cuIcon-add"></text>
-        </view>
-    </drag>
-</view> -->
-
-
 
 <van-action-sheet bind:close="onAddClose" show="{{ formShow }}" title="{{form.type == 1 ? '支出类型' : '收入类型'}}">
   <view class="padding-lg">

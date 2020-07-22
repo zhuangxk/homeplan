@@ -23,10 +23,10 @@ Page({
       type: 1,
       icon: ''
     },
-    icons: ['verification_code','book','travel','food','digital','cultivate','plane','clothes',
+    icons: ['book','travel','food','digital','cultivate','plane','clothes',
       'train','car','education','cash-gift','oil','cosmetology','electric','home','shopping',
       'financing','fruits','cosmetics','work','snacks','communication','car-repair','traffic',
-      'social','friends','pets','housing','tuition','child','parking','water','config','express',
+      'social','friends','pets','housing','tuition','child','parking','water','express',
       'elderly','vegetables','fun','sport','lottery','bookkeeping','reimbursement','taobao','salary',
       'wifi','user','bonus','alimony','part-time-job','refund','alipay','daily-necessities'
     ],
@@ -54,6 +54,16 @@ Page({
   toggleEditMode(){
     this.setData({
       editMode: !this.data.editMode
+    })
+  },
+  onSortend(e: any){
+    console.log(e)
+    const { listData } = e.detail
+    const ids = listData.map((i: AnyObject)=>i.id)
+    sortBillType({
+      ids
+    }).then(res=>{
+      console.log(res)
     })
   },
   onAdd(e: any){
@@ -94,13 +104,6 @@ Page({
   },
   onInput(e: any){
     this.data.form.name = e.detail
-  },
-  onSort(){
-    sortBillType({
-      ids: []
-    }).then(res=>{
-      console.log(res)
-    })
   },
   onDel(){
     const self = this
