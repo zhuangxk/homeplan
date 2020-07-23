@@ -15,13 +15,71 @@
 
     </navigator>   
     
-    <view class="nav-li bg-white">
+    <view class="nav-li bg-white" bind:tap="onAdd">
         <view class="account-add">
             <text class='cuIcon-add'></text>
         </view>
     </view>
 </view>
 
-<!-- <view class="banklogo">
+<van-action-sheet bind:close="onClose" show="{{ formShow }}" title="账户编辑">
+  <view class="padding-lg">
+    <van-cell-group>
+        <van-cell
+            id="type"
+            title="信用账户"
+            input-align="right"
+            size="large"
+            bind:input="onInput"
+        >
+            <van-switch
+            active-color="var(--cyan)"
+            size="20px" 
+            checked="{{ form.type == 2 }}" 
+            bind:change="onSwitchChange" />
+            
+        </van-cell>
+         <van-field
+            id="card_no"
+            value="{{ form.bank_no }}"
+            icon="question-o"
+            clearable
+            label="银行卡号"
+            input-align="right"
+            size="large"
+            placeholder="请输入银行卡号"
+            bind:input="onInput"
+            bind:click-icon="onBankNoAsk"
+        />
+        <van-field
+            id="name"
+            value="{{ form.name }}"
+            required
+            clearable
+            label="账户名"
+            input-align="right"
+            size="large"
+            placeholder="请输入账户名称"
+            bind:input="onInput"
+        />
+        <van-field
+            id="amount"
+            value="{{ form.amount }}"
+            required
+            clearable
+            label="余额"
+            input-align="right"
+            size="large"
+            placeholder="请输入账户余额"
+            bind:input="onInput"
+        />
 
-</view> -->
+    </van-cell-group>
+  </view>
+  
+
+<view class="padding-xl flex justify-around align-center">
+  <!-- <van-button size="small" bind:tap="onDel"  custom-style="padding: 20rpx 50rpx"	icon="delete" block color="var(--gray)">删除</van-button> -->
+  <van-button size="small" bind:tap="onSave" custom-style="padding: 20rpx 50rpx" icon="edit" block color="var(--cyan)">保存</van-button>
+</view>
+</van-action-sheet>

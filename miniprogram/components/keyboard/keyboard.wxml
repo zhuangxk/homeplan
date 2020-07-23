@@ -27,7 +27,9 @@
     bind:tap="onBillTypeTap"
   >
   
-  <text class="j-icon-item-icon cuIcon-{{item.icon}}"></text>
+  <!-- <text class="j-icon-item-icon cuIcon-{{item.icon}}"></text> -->
+  <iconfont class="j-icon-item-icon" name="{{item.icon}}" color="{{['', '#1cbbb4']}}" size="30"/>
+
 
   <text class="j-icon-item-text"> {{item.name}}</text>
   

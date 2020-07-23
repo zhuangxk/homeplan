@@ -91,7 +91,7 @@ Component({
       if (!this.properties.ledgerId){
         return
       }
-      const accounts = await getAccounts(this.properties.ledgerId)
+      const accounts = await getAccounts()
       this.setData({
         accounts,
         accountLoaded: true,

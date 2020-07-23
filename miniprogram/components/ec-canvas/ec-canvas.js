@@ -3,7 +3,6 @@ const {WxCanvas} = require('./wx-canvas');
 const echarts = require('./echarts');
 
 let ctx;
-console.log(WxCanvas)
 function compareVersion(v1, v2) {
   v1 = v1.split('.')
   v2 = v2.split('.')

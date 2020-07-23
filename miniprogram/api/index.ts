@@ -90,10 +90,19 @@ export async function sortBillType(data: AnyObject): Promise<AnyObject> {
 }
 
 // 账户列表
-export async function getAccounts( id: number): Promise<AnyArray> {
+export async function getAccounts(): Promise<AnyArray> {
   return await http({
-    url: `/v1/ledger/${id}/accounts`,
+    url: `/v1/accounts`,
     method: 'GET'
+  })
+}
+
+// 账户添加
+export async function addAccount(data: AnyObject): Promise<AnyArray> {
+  return await http({
+    url: `/v1/account`,
+    method: 'POST',
+    data
   })
 }
 

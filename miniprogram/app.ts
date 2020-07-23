@@ -9,7 +9,7 @@ App<IAppOption>({
   userInfoReadyCallback(data: WechatMiniprogram.GetUserInfoSuccessCallbackResult){
     uploadUserInfo(data.userInfo).then(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         this.globalData.userInfo = res
       }
     )      
@@ -39,7 +39,7 @@ App<IAppOption>({
   onLaunch() {
       // 获取用户信息
     this.getUserInfo().then((res: any)=>{
-      console.log('获取用户信息', res)
+      // console.log('获取用户信息', res)
       this.globalData.userInfo = res.userInfo
       this.userInfoReadyCallback(res)
     })
