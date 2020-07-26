@@ -41,7 +41,7 @@
         </van-cell>
          <van-field
             id="card_no"
-            value="{{ form.bank_no }}"
+            value="{{ form.card_no }}"
             icon="question-o"
             clearable
             label="银行卡号"
