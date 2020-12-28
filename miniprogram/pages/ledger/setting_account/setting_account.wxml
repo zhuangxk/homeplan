@@ -3,7 +3,7 @@
     <text slot="content">账户</text>
 </cu-custom>
 
-<view class='nav-list margin-top-xl'>
+<!-- <view class='nav-list margin-top-xl'>
     <navigator url="/pages/component/{{item.name}}/{{item.name}}" class="nav-li bg-white shadow" wx:for="{{accounts}}" wx:key="id">
         <view>
             <view class="banklogo ui-banklogo-s-ABC"></view>
@@ -11,7 +11,7 @@
         </view>
         <view class="nav-name">￥{{item.amount}}</view>
 
-        <!-- <text class='cuIcon-{{item.icon}}'></text> -->
+        <text class='cuIcon-{{item.icon}}'></text>
 
     </navigator>   
     
@@ -20,6 +20,26 @@
             <text class='cuIcon-add'></text>
         </view>
     </view>
+</view> -->
+<view class='padding-sm'>
+
+    <drag bind:sortend="onSortend" wx:if="{{accounts.length > 0}}" wx:key="id" columns="2" extraNodes="{{[{type: 'after', fixed: true}]}}" listData="{{accounts}}">
+
+        <navigator slot="{{item.id}}" url="/pages/component/{{item.name}}/{{item.name}}" class="bg-white shadow" wx:for="{{accounts}}" wx:key="id">
+            <view>
+                <view class="banklogo ui-banklogo-s-ABC"></view>
+                {{item.name}}
+            </view>
+            <view class="">￥{{item.amount}}</view>
+
+        </navigator> 
+
+        <view class="bg-white" bind:tap="onAdd">
+            <view class="account-add">
+                <text class='cuIcon-add'></text>
+            </view>
+        </view>
+    </drag>
 </view>
 
 <van-action-sheet bind:close="onClose" show="{{ formShow }}" title="账户编辑">

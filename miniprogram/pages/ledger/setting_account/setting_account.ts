@@ -49,6 +49,9 @@ Page({
     addAccount(this.data.form).then(res=>{
       console.log(res)
       this.getAccounts()
+      this.setData({
+        formShow: false
+      })
     })
   },
   onInput(e:any){

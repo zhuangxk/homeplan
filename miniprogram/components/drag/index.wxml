@@ -38,11 +38,15 @@
 		</view> -->
 		<!-- end:请在该区域编写自己的渲染逻辑 -->
 
-		<view wx:if="{{ columns > 1 }}" class="info">
+		<view wx:if="{{ columns > 2 }}" class="info">
 			<view class="info__item">
 				<slot name="{{item.data.id}}"></slot>
-				<!-- {{item.data.name}} -->
-				<!-- <image class="image" src="{{item.data.name}}"></image> -->
+
+			</view>
+		</view>
+		<view wx:if="{{ columns == 2 }}" class="cell">
+			<view class="cell__bd" style="height: 100rpx;">
+				<slot name="{{item.data.id}}"></slot>
 			</view>
 		</view>
 
