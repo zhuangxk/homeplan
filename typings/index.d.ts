@@ -1,5 +1,7 @@
 /// <reference path="../node_modules/miniprogram-api-typings/index.d.ts" />
 
+declare type current = 12;
+
 declare type HTMLElement = {};
 declare type HTMLCanvasElement = {};
 declare type HTMLImageElement = {};
